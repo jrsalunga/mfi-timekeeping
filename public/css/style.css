@@ -1,0 +1,282 @@
+
+
+
+* {
+	
+	
+}
+body {
+	background-color: #BDC3C7;
+ 
+}
+
+@font-face {
+    font-family: 'DS-DIGII';
+    src: url('fonts/DS-DIGII.eot');
+    src: url('fonts/DS-DIGII.eot?#iefix') format('embedded-opentype'),
+         url('fonts/DS-DIGII.woff') format('woff'),
+         url('fonts/DS-DIGII.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Hammersmith One';
+    src: url('fonts/HammerSmithOne.eot');
+    src: url('fonts/HammerSmithOne.eot?#iefix') format('embedded-opentype'),
+         url('fonts/HammerSmithOne.woff') format('woff'),
+         url('fonts/HammerSmithOne.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Digital Mono';
+    src: url('fonts/digital-7__mono_.eot');
+    src: url('fonts/digital-7__mono_.eot?#iefix') format('embedded-opentype'),
+         url('fonts/digital-7__mono_.woff') format('woff'),
+         url('fonts/digital-7__mono_.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
+
+
+
+.container-tk-block {
+	
+}
+
+#tk-block {
+	background-color: #ECF0F1;	
+}
+
+#tk-block > div {
+	min-height: 500px;
+}
+
+/**************** Left Block  ****************/
+
+.main-l-pane {
+	
+}
+
+.time{
+	font-family: 'Digital Mono', 'DS-DIGII', cursive; 
+	font-size: 150px;
+	line-height:.7em;
+}
+
+.ts-group {
+	position: relative;
+	margin-top: 20px;
+	color: #2c3e50;
+	font-family: 'Digital Mono', 'DS-DIGII', cursive; 
+	
+	background-color: #dfdacc;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+}
+
+.ts{
+	margin: 20px 0;
+	color: #2C3E50;
+	font-size: 10em;
+	line-height:.7em;
+	width: 530px;
+	text-align:right;
+	float:left;
+}
+
+
+
+.am {
+	margin-top: 20px;
+	color: #16A085;
+	font-size: 7em;
+	line-height:.7em;
+	width: 100px;
+	float:left;
+	margin-left:10px;
+}
+
+.empno{
+	font-family: 'DS-DIGII', 'Codystar', cursive; 
+	font-size: 100px;
+}
+
+.date-group {
+	margin-top: 10px;
+	font-size: 50px;
+	font-weight:bold;
+	color: #505F6F;
+	
+	font-family: 'Hammersmith One', sans-serif;
+	text-align: center;
+	
+}
+
+.date-group .glyphicon-calendar {
+	font-size: 35px;
+	color: #16A085;
+}
+
+.date-group .day {
+	font-size: 40px;
+	color: #95A5A6;
+}
+
+
+.emp-group {
+	margin-top: 5px;
+/*	height: 200px; */
+	background-color: #97cb97;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+	position: relative;
+	
+}
+
+.img-cont {
+	float:left;
+	height: 140px;
+	width: 140px;
+	background-color: #fff;
+	margin: 20px;
+}
+
+.emp-cont {
+	margin: 20px 0;
+	height: 140px;
+
+/*	background-color: #fff; */
+	float:left;
+}
+
+.emp-cont * {
+	font-family: "Trebuchet MS",Arial,Helvetica,sans-serif;
+	margin: 0px;
+	padding: 0px;
+	font-weight: bold;
+}
+
+.emp-cont p {
+	color: #16A085;
+	margin-top: 10px;
+	font-size: 1.5em;
+}
+
+#emp-name,
+#mdl-emp-name {
+	margin-top: 10px;
+	font-size: 2em;
+}
+
+.message-group {
+	margin-top: 20px;
+	
+}
+
+
+
+/**************** Right Block  ****************/
+
+.main-r-pane {
+	background-color: #fff;
+	
+}
+
+.emp-tk-list > tr > td:first-child {
+	width: 80px;
+	
+}
+.emp-tk-list > tr > td:nth-child(3),
+.emp-tk-list > tr > td:nth-child(4) {
+	width: 100px;	
+}
+
+.container-table {
+	/*
+	max-height: 400px;
+	overflow-y:hidden;
+	overflow-y:scroll;
+	*/
+}
+
+
+#ads-block {
+	
+	background-color: #ccc;
+}
+
+
+
+#announce-block {
+	height: 100%;
+	background-color: #BDC3C7;
+	width: 100%;
+	/*
+	position:fixed;
+	left:0;
+	bottom: 0;
+	z-index: 1000;
+	*/
+	
+	
+}
+
+
+/***************** bootstrap override **************/
+.table {
+	margin: 10px 0px;	
+}
+
+.table > thead > tr > th {
+	border-bottom: 1px solid #ddd;
+	color: #95A5A6;
+}
+
+.table > tbody > tr:last-child > td {
+	border-bottom: 1px solid #ddd;
+}
+
+.modal-dialog {
+    margin: 100px auto;
+    width: 700px;
+}
+
+.modal-footer {
+	margin-top: 0px;
+	text-align: center;
+}
+
+.modal-footer > #btn-time-out,
+.modal-footer > #btn-time-in  {
+	font-size: 1.5em;
+	margin: 0 20px;
+}
+
+.modal-footer > .btn > strong {
+	color: #C0392B;
+	font-size: 1.5em;
+	
+}
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,206 @@
+/* CSS Document */
+
+* {
+    margin:0;
+    padding:0;
+    font-family:Georgia, serif; 	
+    font-size:10pt;
+}
+
+
+body {
+	margin:0px;
+	padding:0px;
+	background-color:#EBEBEB;
+ 	
+} 
+
+table {
+    border-collapse: collapse;
+    font: 14px/1.4 Georgia,serif;
+}
+
+table td, table th {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+
+
+
+
+
+#m-container {
+    margin: 10px 20px;
+ /*   border: 1px solid #ccc; */
+  
+       
+}
+
+#header {
+    position: relative;
+}
+
+
+
+#header h2{
+    font-weight: normal;
+    font-size: 2em;
+    text-align: center;
+}
+
+#header p{
+    text-align: center;
+}
+
+
+#header, #footer {
+   border: 1px solid #fff;  
+}
+
+#main-logo {
+    position:absolute;
+    height: 80px; 
+    width: 80px;
+    border: 0px solid #ccc;
+    top: 20px;
+    left: 180px;
+}
+
+#main-logo img{
+    height: 80px; 
+    width: 80px;
+}
+
+
+
+
+.reportLabel {
+    font-size: 1.5em;
+    font-weight: normal;
+    text-align:center;
+    margin: 80px 10px 10px;
+}
+
+
+#body {
+/*    border: 1px solid #ccc;     */
+}
+
+#header-wrap {
+    margin:30px 20px 10px;
+    position:relative;
+}
+
+#supplier-title {
+   float: left;
+   font-size: 1.5em;
+   max-width: 450px;
+}
+
+
+#meta {
+    float: right;
+    margin-top: 1px;
+    width: 300px;
+}
+
+#meta td:last-of-type,
+#items tr td:nth-of-type(3),
+#items tr td:nth-of-type(4),
+#items tr td:nth-of-type(5) {
+    text-align:right;
+}
+
+#meta td:first-of-type,
+#items th {
+   background: #eee;
+}
+
+
+
+#items {
+    margin: 30px 0 0;
+    width: 100%;
+}
+
+#items td.blank {
+    border: 0px solid #fff;
+   
+}
+
+#items td:nth-of-type(2) {
+	width:250px;
+   
+}
+
+#items td.total-line {
+    border-right: 0 none;
+    text-align: right;
+}
+
+#items td.total-value {
+    border-left: 0 none;
+    padding: 10px;
+}
+
+.isposted{
+	position:absolute; 
+	top:350px; 
+	left:300px;
+	padding: 20px; 
+	border: 2px dashed red;
+	z-index: 10;
+	opacity: 0.6;
+	
+	-webkit-transform: rotate(30deg);
+    -moz-transform: rotate(30deg);
+	border-radius: 10px;
+	
+}
+
+.isposted > h1 {
+	font-size: 50px;
+	color: red;
+}
+
+
+
+
+#items.cvapvdtl tr td:nth-of-type(3){
+	width: 100px;
+	text-align: right;	
+}
+
+#items.cvapvdtl tr td:nth-of-type(4){
+	width: 200px;
+	text-align: right;
+}
+
+#items.cvapvdtl tr td.total-value {
+    padding: 7px 5px;
+}
+
+
+
+#items.cvchkdtl tr td:nth-of-type(3){
+	width: 150px;
+	text-align: right;	
+}
+
+#items.cvchkdtl tr td:nth-of-type(4){
+	width: 150px;
+	text-align: right;
+}
+
+#items.cvchkdtl tr td.total-value {
+    padding: 7px 5px;
+}
+
+
+
+
+
+
+
+

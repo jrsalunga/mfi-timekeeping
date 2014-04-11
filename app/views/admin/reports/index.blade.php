@@ -41,7 +41,7 @@ Reports
 @section('l-pane')
     <div class="col-sm-2 col-md-2 l-pane">
         <ul class="nav nav-pills nav-stacked">
-            
+            <li>{{ HTML::linkRoute('admin.reports.emptk', 'Employee Timelog') }}</li>
         </ul>
     </div>
 @stop

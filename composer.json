@@ -5,7 +5,9 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"cboden/Ratchet": "0.3.*"
+		"cboden/Ratchet": "0.3.*",
+		"maatwebsite/excel": "dev-master",
+		"thujohn/pdf": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

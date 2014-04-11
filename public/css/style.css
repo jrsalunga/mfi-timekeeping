@@ -55,7 +55,7 @@ body {
 }
 
 #tk-block > div {
-	min-height: 500px;
+	min-height: 717px;
 }
 
 /**************** Left Block  ****************/
@@ -72,7 +72,7 @@ body {
 
 .ts-group {
 	position: relative;
-	margin-top: 20px;
+	margin-top: 50px;
 	color: #2c3e50;
 	font-family: 'Digital Mono', 'DS-DIGII', cursive; 
 	
@@ -87,9 +87,9 @@ body {
 .ts{
 	margin: 20px 0;
 	color: #2C3E50;
-	font-size: 10em;
+	font-size: 9em;
 	line-height:.7em;
-	width: 530px;
+	width: 80%;
 	text-align:right;
 	float:left;
 }
@@ -99,11 +99,12 @@ body {
 .am {
 	margin-top: 20px;
 	color: #16A085;
-	font-size: 7em;
+	font-size: 6em;
 	line-height:.7em;
-	width: 100px;
+	width: 20%;
+	text-align: center;
 	float:left;
-	margin-left:10px;
+/*	margin-left:10px; */
 }
 
 .empno{
@@ -112,8 +113,8 @@ body {
 }
 
 .date-group {
-	margin-top: 10px;
-	font-size: 50px;
+	margin-top: 20px;
+	font-size: 55px;
 	font-weight:bold;
 	color: #505F6F;
 	
@@ -128,7 +129,7 @@ body {
 }
 
 .date-group .day {
-	font-size: 40px;
+	font-size: 50px;
 	color: #95A5A6;
 }
 
@@ -234,10 +235,26 @@ body {
 	
 }
 
+.mdl-f-options {
+	margin: 0 20px 10px;
+}
+
+.mdl-f-options > p {
+	display: inline-block;
+	margin: 0 10px;
+	color: #666666;
+}
+
+.mdl-f-options > .btn > strong {
+	color: #C0392B;
+	font-size: 1.2em;
+	
+}
+
 
 /***************** bootstrap override **************/
 .table {
-	margin: 10px 0px;	
+	margin: 20px 0px;	
 }
 
 .table > thead > tr > th {
@@ -270,6 +287,27 @@ body {
 	font-size: 1.5em;
 	
 }
+
+.navbar-text > p {
+	margin: 0 20px;
+	font-size: 17px;
+	line-height: 20px;
+}
+
+.navbar-text > p > span {
+	top: 3px;
+}
+
+.modal-body .table {
+	margin: 0 0;
+}
+
+#TimelogModal .modal-dialog {
+	margin: 30px auto;
+}
+
+
+
 
 
 

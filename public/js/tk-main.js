@@ -1,12 +1,125 @@
 
+
+var buildEmployeesTimelogs = function(data){
+	
+		
+		var tmlgs = getEmployeeTimelogs(data.data.id)
+		var html = htmlEmployeeTimelogs2(tmlgs);
+		//$('#TimelogModal .modal-body').html(html);
+
+};
+
+var getEmployeeTimelogs = function(id){
+	var aData;
+	
+	$.ajax({
+        type: 'GET',
+        contentType: 'application/json',
+		url: '/api/timelog/employee/'+ id,
+        dataType: "json",
+        async: false,
+       // data: formData,
+        success: function(data, textStatus, jqXHR){
+            aData = data;
+			//updateTKmodal(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+			$('.message-group').html('<div class="alert alert-danger">Could not connect to server!</div>');
+            //alert(textStatus + ' Failed on posting data');
+        }
+    });	
+	
+	return aData;
+}
+
+var htmlEmployeeTimelogs2 = function(data){
+	//console.log(data);
+	var len = 15;
+	var ctr = 0;
+	
+	$('#TimelogModal .modal-body').html('');
+	
+	var html = '<div class="row"><div class="col-md-12">';
+	html += '<table class="table table-condensed">';
+	html += '<thead><tr><th>Day</th><th>Time In</th><th>Time Out</th></tr></thead><tbody class="tk-tb">';
+	html += '</tbody></table></div></div>';
+	
+	$('#TimelogModal .modal-body').prepend(html);
+	
+	
+	for(i=0; i<data.length; i++) {
+		
+		var h = '';
+		if(data[i].day == 'Sun'){
+			h += '<tr class="warning">';
+		} else {
+			h += '<tr>';
+		}
+		
+		h += '<td><em>'+ data[i].day +'</em> '+ moment(data[i].date).format("MMMM D, YYYY") +'</td>';
+		h += '<td>'+ data[i].ti +'</td>';
+		h += '<td>'+ data[i].to +'</td>';
+		h += '</tr>';
+		
+		
+		
+		$('.tk-tb').prepend(h);
+		
+		//console.log($('tbody', html));
+		//console.log(data[i].date);
+	}
+	
+	
+	
+	//return html;
+}
+
+
+var htmlEmployeeTimelogs = function(data){
+	console.log(data);
+	var len = 15;
+	var ctr = 0;
+	
+	var html = '<div class="row"><div class="col-md-6">';
+	html += '<table class="table table-condensed">';
+	html += '<thead><tr><th>Day</th><th>Time In</th><th>Time Out</th></tr></thead><tbody>';
+	for(i=0; i<data.length; i++) {
+		if(i==len){
+			html += '</tbody></table></div><div class="col-md-6">';
+			html += '<table class="table table-condensed">';
+			html += '<thead><tr><th>Day</th><th>Time In</th><th>Time Out</th></tr></thead><tbody>';
+		} 
+		if(data[i].day == 'Sun'){
+			html += '<tr class="warning">';
+		} else {
+			html += '<tr>';
+		}
+		
+		html += '<td>'+ (i+1) +' <em>('+ data[i].day +')</em></td>';
+		html += '<td>'+ data[i].ti +'</td>';
+		html += '<td>'+ data[i].to +'</td>';
+		html += '</tr>';
+		//console.log(data[i].date);
+	}
+	html += '</tbody></table></div></div>';
+	
+	
+	return html;
+}
+
+
+
+
 var appendToTkList = function(data){
+	
+	var d = moment(data.data.date+' '+data.data.time).tz("Asia/Manila").format('hh:mm:ss A');
 	
 		var html = '<tr><td>'+ data.data.empno +'</td>';
 			html += '<td>'+ data.data.lastname +', '+ data.data.firstname +'</td>'
-			html += '<td>'+ data.data.time +'</td>'
+			html += '<td>'+ d +'</td>'
 			html += '<td>'+ data.data.txncode +'</td></tr>';
 			
-		if($('.emp-tk-list tr').length== 15){
+		if($('.emp-tk-list tr').length== 20){
 			$('.emp-tk-list tr:last-child').empty();
 			$('.emp-tk-list tr:last-child').remove();
 		}
@@ -102,7 +215,7 @@ var postTimelog = function(empno, tc){
 	var aData;
 	var formData = {
 		rfid : empno,
-		datetime: moment().format('YYYY-MM-DD hh:mm:ss'),
+		datetime: moment().tz("Asia/Manila").format('YYYY-MM-DD HH:mm:ss'),
 		txncode: tc,
 		entrytype: '1',
 		terminalid: 'plant' 
@@ -141,18 +254,21 @@ var getEmployee = function(empno){
        // data: formData,
         success: function(data, textStatus, jqXHR){
             aData = data;
-			updateTKmodal(data);
+			//updateTKmodal(data);
         },
         error: function(jqXHR, textStatus, errorThrown){
 			$('.message-group').html('<div class="alert alert-danger">Could not connect to server!</div>');
             //alert(textStatus + ' Failed on posting data');
         }
     });	
+	
+	return aData;
 }
 
 var keypressInit = function(){
 	
 	var data = {};
+	var empData = {};
 	var arr = [];
 	var endCapture = false;
 	var posted = false;
@@ -165,6 +281,7 @@ var keypressInit = function(){
 		endCapture = false;
 		arr = [];
 		last_empno = '';
+		empData = {};
 	});
 	
 	
@@ -183,7 +300,8 @@ var keypressInit = function(){
 			if(validateEmpno(empno) && last_empno != empno){
 				console.log('Fetching employee: '+ empno);
 				
-				getEmployee(empno);
+				empData = getEmployee(empno);
+				updateTKmodal(empData);
 				last_empno = empno;
 			} else {
 				console.log('Same Empno')	
@@ -211,6 +329,20 @@ var keypressInit = function(){
 				postTimelog(empno,'to');
 			}
 			$('#TKModal').modal('hide');
+			endCapture = false;
+			arr = [];
+			last_empno = '';
+			
+		} else if((code == 116 || code == 64) && endCapture){ // press view timelogs
+			$('#TKModal').modal('hide');
+			if(validateEmpno(empno)){
+				console.log('Get Employee Timelog: '+ empno);
+				//postTimelog(empno,'to');
+				buildEmployeesTimelogs(empData);
+				$('#TimelogModal').modal('show');
+				
+			}
+			
 			endCapture = false;
 			arr = [];
 			last_empno = '';
@@ -247,20 +379,23 @@ var keypressInit = function(){
 
 var InitClock = function(){
 	
+	//var timezone = moment.tz(DateWithTimezone.getTimezone()).format("Z")
+	
+	
 	setInterval( function() {
-		$('.ts').html(moment().format('hh:mm:ss'));
+		$('.ts').html(moment().tz("Asia/Manila").format('hh:mm:ss'));
 	},1000);
 	
 	setInterval( function() {
-		$('.am').html(moment().format('a'));
+		$('.am').html(moment().tz("Asia/Manila").format('a'));
 	},1000);
 	//},64000); // 1 min
 	
 	setInterval( function() {
-		$('.day').html(moment().format('ddd'));
-		$('#date time').html(moment().format("MMMM D, YYYY"));
-	//},1000);
-	},3600000); // 1 hr
+		$('.day').html(moment().tz("Asia/Manila").format('dddd'));
+		$('#date time').html(moment().tz("Asia/Manila").format("MMMM D, YYYY"));
+	},1000);
+	//},3600000); 
 	
 	
 }
@@ -268,6 +403,7 @@ var InitClock = function(){
 
 $(document).ready(function(){
 		
+	//$('.modal').modal('show');
 	
 	InitClock();
 	

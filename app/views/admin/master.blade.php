@@ -14,6 +14,7 @@
 {{ HTML::style('css/bootstrap.css') }}
 {{ HTML::style('css/styles-ui2.css') }}
 
+
 </head>
 <body>
 <!-- Fixed navbar -->
@@ -51,10 +52,15 @@
 	
 
 	{{ HTML::script('js/vendors/jquery-1.10.1.min.js') }}
-	{{ HTML::script('js/vendors/jquery-ui-1.10.3.js') }}
-	{{ HTML::script('js/vendors/moment.2.1.0-min.js') }}
-  {{ HTML::script('js/vendors/bootstrap.min.js') }}
-
+    {{ HTML::script('js/vendors/jquery-ui-1.10.3.js') }}
+    {{ HTML::script('js/vendors/underscore-min.js') }}
+    {{ HTML::script('js/vendors/backbone-min.js') }}
+    {{ HTML::script('js/vendors/moment.2.1.0-min.js') }}
+    {{ HTML::script('js/vendors/jquery.typeflow.js') }}
+    {{ HTML::script('js/vendors/bootstrap.min.js') }}
+    {{ HTML::script('js/models.js') }}
+    {{ HTML::script('js/collections.js') }}
+    {{ HTML::script('js/views.js') }}
 
 @section('document-ready')
 @show

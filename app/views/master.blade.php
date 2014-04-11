@@ -26,8 +26,9 @@
             </a>
             <a class="navbar-brand" href="{{ URL::to('/admin') }}">ModularFusion Inc</a>
         </div>
-        <div class="navbar-collapse collapse">           
-	 
+        
+        <div class="navbar-text navbar-right">
+        	<p><span class="glyphicon glyphicon-time"></span> Timekeeping</p>
         </div>
     </div>
 </div>
@@ -46,7 +47,12 @@
 				<div id="date">
 					<span class="glyphicon glyphicon-calendar"> </span>				
 					<time>{{  date('F j, Y', strtotime('now')) }}</time>
-					<span class="day">{{  date('D', strtotime('now')) }}</span>
+					<!--<span class="day">{{  date('D', strtotime('now')) }}</span> -->
+				</div>
+				<div>
+					<span>
+						<span class="day">{{  date('l', strtotime('now')) }}</span>
+					</span>
 				</div>
 			</div>
 			<div class="emp-group">
@@ -75,8 +81,8 @@
 						@foreach($employees as $employee)
 						<tr>
 							<td>{{ $employee->code }}</td>
-							<td>{{ $employee->lastname }}, {{ $employee->firstname }}</td>
-							<td>{{ $employee->time }}</td>
+							<td title="{{ $employee->rfid }}" >{{ $employee->lastname }}, {{ $employee->firstname }}</td>
+							<td>{{ strftime('%I:%M:%S %p', strtotime($employee->time)) }}</td>
 							<td>{{ $employee->type == 'ti' ? 'Time In': 'Time Out' }}</td>
 						</tr>
 						@endforeach
@@ -87,10 +93,11 @@
 	</div>
 </div>
 
-	<div id="announce-block">
+	<!--
+	<div id="announce-block2">
 	
 	</div>
-
+	-->
 
 <div class="modal fade" id="TKModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog">
@@ -119,6 +126,34 @@
         <button type="button" id="btn-time-out" class="btn btn-warning" data-dismiss="modal">press <strong>J</strong> for Time Out</button>
         
       </div>
+      	<div class="mdl-f-options">
+      		<p>Options:</p>
+      		<button type="button" class="btn btn-info btn-xs">press <strong>T</strong> to view timelog for the current month</button>
+  			<button type="button" class="btn btn-default btn-xs">press <strong>Esc</strong> to escape</button>
+      	</div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="TimelogModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        
+        <h4 class="modal-title" id="myModalLabel">Timelog for the last 15 days:</h4>
+      </div>
+      <div class="modal-body">
+      	
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Ok</button>
+        
+      </div>
+      	
     </div>
   </div>
 </div>
@@ -126,12 +161,36 @@
 
 	{{ HTML::script('js/vendors/jquery-1.10.1.min.js') }}
 	{{ HTML::script('js/vendors/jquery-ui-1.10.3.js') }}
-	{{ HTML::script('js/vendors/moment.2.1.0-min.js') }}
+	{{ HTML::script('js/vendors/moment.2.5.1-min.js') }}
+	{{ HTML::script('js/vendors/moment-timezone.min.js') }}
+	<script>
+	moment.tz.add({
+	    "zones": {
+	        "Asia/Manila": [
+	            "-15:56 - LMT 1844_11_31 -15:56",
+	            "8:4 - LMT 1899_4_11 8:4",
+	            "8 Phil PH%sT 1942_4 8",
+	            "9 - JST 1944_10 9",
+	            "8 Phil PH%sT"
+	        ]
+	    },
+	    "rules": {
+	        "Phil": [
+	            "1936 1936 10 1 7 0 0 1 S",
+	            "1937 1937 1 1 7 0 0 0",
+	            "1954 1954 3 12 7 0 0 1 S",
+	            "1954 1954 6 1 7 0 0 0",
+	            "1978 1978 2 22 7 0 0 1 S",
+	            "1978 1978 8 21 7 0 0 0"
+	        ]
+	    },
+	    "links": {}
+	});
+	</script>
+	
 	{{ HTML::script('js/vendors/jquery.typeflow.js') }}
 	{{ HTML::script('js/vendors/bootstrap.min.js') }}
 	{{ HTML::script('js/tk-main.js') }}
 
-
-	
 </body>
 </html>

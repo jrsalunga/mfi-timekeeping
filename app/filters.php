@@ -87,6 +87,8 @@ Route::filter('csrf', function()
 {
 	if (Session::token() != Input::get('_token'))
 	{
-		throw new Illuminate\Session\TokenMismatchException;
+		//throw new Illuminate\Session\TokenMismatchException;
+		Session::flash('error', 'Error on validating csrf form!');
+		return Redirect::to(URL::previous());
 	}
 });

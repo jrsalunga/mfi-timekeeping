@@ -36,6 +36,11 @@ body {
 	*/
 }
 
+.r-pane > div:first-child {
+	margin-top: 15px;
+	
+}
+
 .chart {
 	height: 250px;
 /*	border: 1px solid #ccc; */
@@ -43,6 +48,28 @@ body {
 }
 
 /****** overide bootstrap***/
+.table tbody tr td:first-of-type > div {
+    color: #CCCCCC;
+    display: inline;
+    float: right;
+    opacity: 0;
+}
+.table tbody tr:hover td:first-of-type > div {
+    opacity: 1;
+}
+.table tbody tr td:first-of-type > div {
+    opacity: 0;
+}
+.table tbody tr:hover td:first-of-type > div > a:hover > .glyphicon {
+    color: #80808E;
+    text-decoration: none;
+}
+.tb-data-action {
+    margin: 0 10px;
+}
+.tb-data-action .glyphicon {
+    color: #CCCCCC;
+}
 
 .has-error .validation-error-block {
 	color: #B94A48;
@@ -579,4 +606,31 @@ background-repeat: no-repeat;
     line-height: 45px;
     margin: 0;
 }
+
+/********************* emp timelog **************/
+
+.tk-emp.panel {
+	
+}
+
+
+.tk-emp.panel .panel-body form{
+	margin: 20px;
+}
+
+
+
+
+
+
+.tk-tb .warning {
+	color:#d44950;
+}
+
+.tk-tb tr td:first-child em {
+	color: #aaa; 
+	width: 30px; 
+	display:inline-block;
+}
+
 

@@ -37,7 +37,7 @@ Employee
   			<li class="previous"><a href="#" data-toggle="modal" data-target="#EmployeeModal">Add Employee</a></li>
 		</ul>
 
-    		<table class="table table-condensed">
+    		<table class="table table-condensed tb-employee">
   				<thead>
   					<tr>
 	  					<th>Emp No</th>
@@ -49,6 +49,7 @@ Employee
 	  				<tr>
   				</thead>
   				<tbody>
+  					<!--
   					@foreach($employees as $employee)
   					<tr>
 	  					<td>{{ $employee->code }}</td>
@@ -59,6 +60,7 @@ Employee
 	  					<td>{{ $employee->rfid }}</td>
 	  				</tr>
   					@endforeach
+  					-->
   				</tbody>
 			</table>
     	</div>
@@ -81,9 +83,9 @@ Employee
 		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		        <h4 class="modal-title" id="myModalLabel">Create New Record - Employee</h4>
 		      </div>
-		      <div class="modal-body">
-		    		{{ Form::open(array('id'=>'frm-mdl-employee', 'name'=>'frm-mdl-employee', 'class'=>'table-model form-horizontal', 'role'=>'form', 'data-table'=>'employee')) }}
-
+		      	{{ Form::open(array('id'=>'frm-mdl-employee', 'name'=>'frm-mdl-employee', 'class'=>'table-model form-horizontal', 'role'=>'form', 'data-table'=>'employee')) }}
+		      	{{ Form::hidden('_method', 'POST') }}
+		      	<div class="modal-body">
 		    		<div class="form-group">
 		    			<!--<label class="col-sm-2 control-label" for="code">Code:</label>-->
 		    			{{ Form::label('code', 'Code:', array('class'=>'col-sm-2 control-label')) }}
@@ -127,14 +129,13 @@ Employee
 							{{ Form::text('rfid', '',array('maxlength'=>'10', 'class'=>'form-control', 'placeholder'=>'RFID')) }}
 							<span class="validation-error-block"></span>
 						</div>
-		    		</div>
-
-		    		{{ Form::close() }}
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-		        <button type="button" class="btn btn-primary" id="modal-btn-save">Save changes</button>
-		      </div>
+		    		</div>	    		
+		      	</div>
+		      	<div class="modal-footer">
+		    		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        	<button type="button" class="btn btn-primary" id="modal-btn-save">Save changes</button>
+		      	</div>
+		      	{{ Form::close() }}
 		    </div>
 		  </div>
 		</div>
@@ -147,9 +148,35 @@ Employee
 <script type="text/javascript">
 $(document).ready(function(){
 
-	$('#modal-btn-save').on('click', function(){
-		$('#frm-mdl-employee').submit();
+	$('.pager .previous a').on('click', function(){
+		modalSettings.set({mode:'add', title: 'Add Record'});
+		$(".table-model").clearForm();
+		$(".table-model #code").focus();
 	});
+
+
+
+
+	var modalView = new ModalView({model: modalData, settings: modalSettings});
+	var pagination = new Pagination({{ $employees->toJson() }});
+
+	var tmpl = _.template('<td><%- code %>'
+						+'<div class="tb-data-action">'					
+						+'<a class="row-edit" href="#"><span class="glyphicon glyphicon-pencil"></span></a> '
+						+'<a class="row-delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>'
+						+'</div></td>'
+						+'<td><%- lastname %></td>'
+						+'<td><%- firstname %></td>'
+						+'<td><%- middlename %></td>'
+						+'<td><%- position %></td>'
+						+'<td><%- rfid %></td>');
+	var employees = new Employees(pagination.models[0].attributes.data);
+	var tbDataTableView = new TBDataTableView({collection: employees, template: tmpl, el: '.tb-employee tbody',});
+
+	//var employees = new Employees(pagination.models[0].attributes.data);
+	//var employeesView = new EmployeesView({collection: employees});
+
+	tbDataTableView.render();
 
 });
 @stop

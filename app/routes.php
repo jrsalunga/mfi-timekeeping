@@ -119,7 +119,12 @@ Route::get('api/timelog/employee/{id?}', function($id = null) {
 
 
 
-
+Route::get('register', function(){
+	$u = '';
+	$p = '';
+	
+	
+});
 
 
 

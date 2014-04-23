@@ -64,6 +64,57 @@ var TimelogsView = Backbone.View.extend({
 
 
 
+var TBDataRowView = Backbone.View.extend({
+	tagName: 'tr',
+	initialize: function(){
+		this.model.on('change', this.render, this);
+        this.template = this.options.template;
+	},
+	events: {
+        'click .row-edit': 'editModel',
+        'click .row-delete': 'deleteModel'
+    },
+	render: function(){
+        this.$el.html(this.template(this.model.toJSON()));
+   
+        return this;
+    },
+    editModel: function(e){
+    	e.preventDefault();
+    	modalSettings.set({ mode:'edit', title:'Edit Record'});
+    	modalData.clear({silent:true});
+    	modalData.set(this.model.toJSON());
+    	$('.modal').modal('show');
+    },
+    deleteModel: function(e){
+    	e.preventDefault();
+    	modalSettings.set({mode:'delete', title: 'Delete Record'});
+    	modalData.clear({silent:true});
+    	modalData.set(this.model.toJSON());
+    	$('.modal').modal('show');
+    }
+});
+
+
+var TBDataTableView = Backbone.View.extend({
+	
+	initialize: function(){
+		this.template = this.options.template;
+	},
+	render:function () {
+		this.addAll();
+        return this;
+	},
+	addOne: function(data){
+		var tbDataRowView = new TBDataRowView({model: data, template: this.template});
+		this.$el.append(tbDataRowView.render().el);
+	},
+	addAll: function(){
+		this.collection.forEach(this.addOne, this);
+	}
+});
+
+
 
 
 

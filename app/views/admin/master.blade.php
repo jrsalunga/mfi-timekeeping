@@ -58,6 +58,7 @@
     {{ HTML::script('js/vendors/moment.2.1.0-min.js') }}
     {{ HTML::script('js/vendors/jquery.typeflow.js') }}
     {{ HTML::script('js/vendors/bootstrap.min.js') }}
+    {{ HTML::script('js/common.js') }}
     {{ HTML::script('js/models.js') }}
     {{ HTML::script('js/collections.js') }}
     {{ HTML::script('js/views.js') }}

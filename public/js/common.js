@@ -1016,7 +1016,7 @@ $.fn.clearForm = function() {
   // iterate each matching form
   return this.each(function() {
     // iterate the elements within the form
-    $(':input', this).each(function() {
+    $(':input:not(input[name^=_])', this).each(function() {
       var type = this.type, tag = this.tagName.toLowerCase();
       if (type == 'text' || type == 'password' || tag == 'textarea')
         this.value = '';

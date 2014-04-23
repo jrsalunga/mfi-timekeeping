@@ -8,8 +8,19 @@ class EmployeeController extends BaseController {
 		//$employees = Employee::orderBy('lastname', 'ASC')->get();
 		
 		//$employees = Employee::orderBy('lastname', 'ASC')->paginate(10);
+		$rows = !is_null(Input::get('maxRow')) ? Input::get('maxRow') : 10;
 		
-		$employees = Employee::orderBy('lastname', 'ASC')->paginate(10);
+		if(is_null(Input::get('q'))){
+			$employees = Employee::orderBy('lastname', 'ASC')->paginate($rows);
+		} else {
+			$q = Input::get('q');
+			$employees = Employee::where('lastname', 'like', '%'.$q.'%')
+									->where('firstname', 'like', '%'.$q.'%', 'OR')
+									->where('middlename', 'like', '%'.$q.'%', 'OR')
+									->where('code', 'like', '%'.$q.'%', 'OR')
+									->orderBy('lastname', 'ASC')->paginate($rows);
+		}
+		
 
 		//$employees->setBaseUrl('admin/masterfiles/employee');
 		
@@ -25,9 +36,9 @@ class EmployeeController extends BaseController {
 
 		$rules = array(
 			'code'       => 'required',
-			'lastname'      => 'required',
-			'firstname'      => 'required',
-			'middlename'      => 'required'
+			'lastname'   => 'required',
+			'firstname'  => 'required',
+			'middlename' => 'required'
 		);
 		
 		$validator = Validator::make(Input::all(), $rules);

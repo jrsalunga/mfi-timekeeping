@@ -113,10 +113,11 @@ var htmlEmployeeTimelogs = function(data){
 var appendToTkList = function(data){
 	
 	var d = moment(data.data.date+' '+data.data.time).tz("Asia/Manila").format('hh:mm:ss A');
+	var c = moment(data.data.date+' '+data.data.time).tz("Asia/Manila").format('MMM D');
 	
 		var html = '<tr><td>'+ data.data.empno +'</td>';
 			html += '<td>'+ data.data.lastname +', '+ data.data.firstname +'</td>'
-			html += '<td>'+ d +'</td>'
+			html += '<td><span> '+ c +' </span>&nbsp; '+ d +' </td>'
 			html += '<td>'+ data.data.txncode +'</td></tr>';
 			
 		if($('.emp-tk-list tr').length== 20){
@@ -333,7 +334,7 @@ var keypressInit = function(){
 			arr = [];
 			last_empno = '';
 			
-		} else if((code == 116 || code == 64) && endCapture){ // press view timelogs
+		} else if((code == 116 || code == 64 || code == 114 || code == 84) && endCapture){ // press view timelogs
 			$('#TKModal').modal('hide');
 			if(validateEmpno(empno)){
 				console.log('Get Employee Timelog: '+ empno);
@@ -393,6 +394,7 @@ var InitClock = function(){
 	
 	setInterval( function() {
 		$('.day').html(moment().tz("Asia/Manila").format('dddd'));
+		//$('.day').html(moment().tz("Asia/Manila").format('MMM D'));
 		$('#date time').html(moment().tz("Asia/Manila").format("MMMM D, YYYY"));
 	},1000);
 	//},3600000); 

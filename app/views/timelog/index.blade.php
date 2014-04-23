@@ -233,6 +233,10 @@ function searchEmployee(){
 
 $(document).ready(function(){
 
+	$( "#date" ).datepicker({
+      dateFormat: 'yy-mm-dd',
+    });
+
 	
 
 	var modalView = new ModalView({model: modalData, settings: modalSettings});

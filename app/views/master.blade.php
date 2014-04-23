@@ -74,7 +74,7 @@
 				<table class="table table-striped table-condensed" role="table">
 					<thead>
 						<tr>
-							<th>Emp No</th><th>Name</th><th>Time</th><th>Type</th>
+							<th>Emp No</th><th>Name</th><th>Date Time</th><th>Type</th>
 						</tr>
 					</thead>
 					<tbody class="emp-tk-list">
@@ -82,7 +82,12 @@
 						<tr>
 							<td>{{ $employee->code }}</td>
 							<td title="{{ $employee->rfid }}" >{{ $employee->lastname }}, {{ $employee->firstname }}</td>
-							<td>{{ strftime('%I:%M:%S %p', strtotime($employee->time)) }}</td>
+							<td>
+								<span>
+									{{ strftime('%b %d', strtotime($employee->date)) }}
+								</span>
+								&nbsp;
+								{{ strftime('%I:%M:%S %p', strtotime($employee->time)) }}</td>
 							<td>{{ $employee->type == 'ti' ? 'Time In': 'Time Out' }}</td>
 						</tr>
 						@endforeach

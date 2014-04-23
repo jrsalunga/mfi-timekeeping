@@ -200,9 +200,17 @@ body {
 	width: 80px;
 	
 }
-.emp-tk-list > tr > td:nth-child(3),
+.emp-tk-list > tr > td:nth-child(3) {
+	width: 180px;	
+}
+
 .emp-tk-list > tr > td:nth-child(4) {
 	width: 100px;	
+}
+
+.emp-tk-list td span {
+	color: #aaa;
+	
 }
 
 .container-table {

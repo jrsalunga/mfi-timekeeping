@@ -23,3 +23,7 @@ var Timelog = Backbone.Model.extend({
 	}
 });
 var timelog = new Timelog();
+
+
+var Employee = Backbone.Model.extend({});
+var employee = new Employee();

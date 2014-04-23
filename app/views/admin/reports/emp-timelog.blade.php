@@ -31,7 +31,7 @@ Reports
         </a>
             <ul class="dropdown-menu">
               <li><a href="#settings">Settings</a></li>
-                <li><a href="logout">Sign Out</a></li>     
+                <li><a href="../logout">Sign Out</a></li>     
           </ul>
     </li>
 </ul> 

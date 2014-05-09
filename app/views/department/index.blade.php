@@ -9,10 +9,13 @@ Department
 
 @section('l-pane')
     <div class="col-sm-2 col-md-2 l-pane">
+    	{{ MenuManger::getNavs() }}
+        {{--
         <ul class="nav nav-pills nav-stacked">
             <li>{{ HTML::linkRoute('employee.index', 'Employee') }}</li>
             <li class="active">{{ HTML::linkRoute('department.index', 'Department') }}<li>
         </ul>
+        --}}
     </div>
 @stop
 

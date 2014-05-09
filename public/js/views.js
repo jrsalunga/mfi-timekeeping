@@ -84,6 +84,7 @@ var TBDataRowView = Backbone.View.extend({
     	modalSettings.set({ mode:'edit', title:'Edit Record'});
     	modalData.clear({silent:true});
     	modalData.set(this.model.toJSON());
+    	console.log(this.model.toJSON());
     	$('.modal').modal('show');
     },
     deleteModel: function(e){
@@ -133,7 +134,7 @@ var ModalView = Backbone.View.extend({
 	populate: function(){
 		var attrs = { }, k;
 		for(k in this.model.attributes) {
-			//console.log(k);
+			console.log(k +' - '+ this.model.get(k));
 
 			this.$el.find("#"+k).val(this.model.get(k));
 		}		
@@ -214,7 +215,7 @@ var ModalView = Backbone.View.extend({
 			that.btnSaveEnable();
 		}	
 	},
-	 btnSaveEnable: function(){
+	btnSaveEnable: function(){
     	$(".model-btn-save").prop('disabled', false);	
 		$(".model-btn-save-blank").prop('disabled', false);
     },
@@ -231,13 +232,20 @@ var ModalView = Backbone.View.extend({
 	    $('.modal-table-detail').show();
 	},
 	modelInputsDisable: function(){
-		var attrs = { }, k;
-		console.log(this.model.attributes);
-		for(k in this.model.attributes) { 
-			console.log(k);
-	         this.$el.find(".table-model #"+k).prop( "disabled", true );
+		console.log('modelInputsDisable');
+		var attrs = { }, k, attribs;
+		
+		if(_.isEmpty(this.model.attributes)){
+			attribs = this.model.defaults;
+		} else {
+			attribs = this.model.attributes;
+		}
+		//for(k in this.model.attributes) {
+		for(k in attribs) {  
+			console.log(this.$el.find(".table-model #"+k));
+	        this.$el.find(".table-model #"+k).prop("disabled", true);
 	    }
-	    this.$el.find(".table-model .toggle").prop( "disabled", true );
+	    this.$el.find(".table-model .toggle").prop("disabled", true);
 	},
 	modelInputsEnable: function(){
 		var attrs = { }, k;

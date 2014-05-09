@@ -13,16 +13,16 @@ Reports
 </button>
 @stop
 
+@section('navbar-collapse')
+{{ MenuManger::getMenu(4) }}
+@stop
+
 @section('nav-bar')
-<ul class="nav navbar-nav">
-   
-    <li>{{ HTML::linkRoute('admin.masterfiles.index', 'Masterfiles') }}</li>
-    <li>{{ HTML::linkRoute('admin.transactions.index', 'Transactions') }}</li>
-    <li class="active">{{ HTML::linkRoute('admin.reports.index', 'Reports') }}</li>
-</ul>
+
 @stop
 
 @section('nav-bar-right')
+{{--
 <ul class="nav navbar-nav navbar-right"> 
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -35,14 +35,18 @@ Reports
           </ul>
     </li>
 </ul> 
+--}}
 @stop
 
 
 @section('l-pane')
     <div class="col-sm-2 col-md-2 l-pane">
+        {{ MenuManger::getNavs() }}
+        {{--
         <ul class="nav nav-pills nav-stacked">
             <li>{{ HTML::linkRoute('admin.reports.emptk', 'Employee Timelog') }}</li>
         </ul>
+        --}}
     </div>
 @stop
 

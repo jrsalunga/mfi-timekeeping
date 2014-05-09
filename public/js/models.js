@@ -2,7 +2,19 @@
 
 
 
-var ModalData = Backbone.Model.extend({});
+var ModalData = Backbone.Model.extend({
+
+	defaults: {
+		code : '',
+		lastname : '',
+		firstname : '',
+		middlename : '',
+		position : '',
+		rfid : '',
+		id : ''
+	}
+	
+});
 var modalData = new  ModalData();
 var ModalSettings = Backbone.Model.extend({});
 var modalSettings = new ModalSettings();

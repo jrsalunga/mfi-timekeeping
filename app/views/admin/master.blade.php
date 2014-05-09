@@ -28,6 +28,13 @@
             </a>
             <a class="navbar-brand" href="{{ URL::to('/admin') }}">Timekeeping Module</a>
         </div>
+
+
+
+        @section('navbar-collapse')
+        @show
+
+        
         <div class="navbar-collapse collapse">           
             @section('nav-bar')
             @show
@@ -35,6 +42,7 @@
             @section('nav-bar-right')
             @show		 
         </div>
+        
     </div>
 </div>
 <div class="row">

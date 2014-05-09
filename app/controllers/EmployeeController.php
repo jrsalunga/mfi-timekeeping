@@ -21,10 +21,6 @@ class EmployeeController extends BaseController {
 									->orderBy('lastname', 'ASC')->paginate($rows);
 		}
 		
-
-		//$employees->setBaseUrl('admin/masterfiles/employee');
-		
-
 		return View::make('employee.index')->with('employees', $employees);
 	}
 	
@@ -44,7 +40,6 @@ class EmployeeController extends BaseController {
 		$validator = Validator::make(Input::all(), $rules);
 
 		if ($validator->fails()) {
-			//return Redirect::to('nerds/create')
 			return Redirect::route('employee.index')
 				->withErrors($validator)
 				->withInput(Input::except('password'));
@@ -71,6 +66,48 @@ class EmployeeController extends BaseController {
 		return View::make('employee.index')->with('data', array('message'=>$message, 'employee'=>$employee));
 		//return View::make('employee.create');
 		*/
+	}
+	
+	public function update() {
+		
+		$employee = Employee::find(Input::get('id'));
+		
+		if($employee){
+			$rules = array(
+				'code'       => 'required',
+				'lastname'   => 'required',
+				'firstname'  => 'required',
+				'middlename' => 'required'
+			);	
+			$validator = Validator::make(Input::all(), $rules);
+			if ($validator->fails()) {
+				return Redirect::route('employee.index')
+					->withErrors($validator)
+					->withInput(Input::except('password'));
+			} else {
+				$employee->code      = Input::get('code');
+				$employee->lastname	 = Input::get('lastname');
+				$employee->firstname = Input::get('firstname');
+				$employee->middlename = Input::get('middlename');
+				$employee->position  = Input::get('position');
+				$employee->rfid 	 = Input::get('rfid');
+				if($employee->save()){
+					Session::flash('message', 'Success on updating employee!');
+				} else {
+					Session::flash('error', 'Error on saving!');
+				}
+				return Redirect::route('employee.index');
+			}
+		} else {
+			Session::flash('error', 'Employee not found!');
+		}
+		return Redirect::route('employee.index');
+	}
+	
+	public function delete() {
+		//return dd(Input::all());
+		Session::flash('error', 'Unable to delete. Access denied! ');
+		return Redirect::route('employee.index');
 	}
 	
 	

@@ -13,16 +13,25 @@ Masterfiles
 </button>
 @stop
 
+@section('navbar-collapse')
+{{ MenuManger::getMenu(4) }}
+@stop
+
 @section('nav-bar')
+{{--
 <ul class="nav navbar-nav">
    
     <li class="active">{{ HTML::linkRoute('admin.masterfiles.index', 'Masterfiles') }}</li>
     <li>{{ HTML::linkRoute('admin.transactions.index', 'Transactions') }}</li>
     <li>{{ HTML::linkRoute('admin.reports.index', 'Reports') }}</li>
 </ul>
+--}} 
 @stop
 
 @section('nav-bar-right')
+
+
+{{--
 <ul class="nav navbar-nav navbar-right"> 
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -34,16 +43,20 @@ Masterfiles
                 <li><a href="logout">Sign Out</a></li>     
           </ul>
     </li>
-</ul> 
+</ul>
+--}}
 @stop
 
 
 @section('l-pane')
     <div class="col-sm-2 col-md-2 l-pane">
+        {{ MenuManger::getNavs() }}
+        {{--
         <ul class="nav nav-pills nav-stacked">
             <li>{{ HTML::linkRoute('employee.index', 'Employee') }}</li>
             <li>{{ HTML::linkRoute('department.index', 'Department') }}<li>
         </ul>
+        --}}
     </div>
 @stop
 

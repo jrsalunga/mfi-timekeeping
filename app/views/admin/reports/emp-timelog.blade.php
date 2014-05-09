@@ -40,9 +40,12 @@ Reports
 
 @section('l-pane')
     <div class="col-sm-2 col-md-2 l-pane">
+        {{ MenuManger::getNavs() }}
+        {{--
         <ul class="nav nav-pills nav-stacked">
-            <li class="active">{{ HTML::linkRoute('admin.reports.emptk', 'Employee Timelog') }}</li>
+            <li class="active">{{ HTML::linkRoute('reports.emptk', 'Employee Timelog') }}</li>
         </ul>
+        --}}
     </div>
 @stop
 

@@ -28,6 +28,8 @@ Route::get('admin', array('before' => 'auth', 'as'=>'admin.index', 'uses'=>'Admi
 Route::get('admin/masterfiles', array('as'=>'admin.masterfiles.index', 'uses'=>'MasterfilesController@index'));
 Route::get('admin/masterfiles/employee', array('as'=>'employee.index', 'uses'=>'EmployeeController@index'));
 Route::post('admin/masterfiles/employee', array('as'=>'employee.create', 'uses'=>'EmployeeController@create', 'before' => 'csrf'));
+Route::put('admin/masterfiles/employee', array('as'=>'employee.update', 'uses'=>'EmployeeController@update', 'before' => 'csrf'));
+Route::delete('admin/masterfiles/employee', array('as'=>'employee.delete', 'uses'=>'EmployeeController@delete', 'before' => 'csrf'));
 //Route::get('admin/masterfiles/employee/add', array('as'=>'employee.create', 'uses'=>'EmployeeController@create'));
 Route::get('admin/masterfiles/department', array('as'=>'department.index', 'uses'=>'DepartmentController@index'));
 
@@ -41,9 +43,8 @@ Route::delete('admin/transactions/timelog', array('as'=>'timelog.remove', 'uses'
 
 
 
-
 Route::get('admin/reports', array('as'=>'admin.reports.index', 'uses'=>'ReportsController@index'));
-Route::get('admin/reports/emp-timelog', array('as'=>'admin.reports.emptk', 'uses'=>'ReportsController@empTimelog'));
+Route::get('admin/reports/emp-timelog', array('as'=>'reports.emptk', 'uses'=>'ReportsController@empTimelog'));
 
 
 
@@ -120,8 +121,28 @@ Route::get('api/timelog/employee/{id?}', function($id = null) {
 
 
 Route::get('register', function(){
-	$u = '';
-	$p = '';
+	
+	
+	if(!empty($_GET['u']) && !empty($_GET['p'])){
+		
+		$user = new User();
+		
+		$user->name = Input::get('n');
+		$user->username = Input::get('u');
+		$user->password = Hash::make(Input::get('p'));
+		$user->email = Input::get('e');
+		$user->admin = '0';
+		$user->id = Employee::get_uid();
+		
+		if($user->save()){
+			return 'success';
+		} else {
+			return 'error';
+		}
+	} else {
+		return 'no username & password';
+	}
+	
 	
 	
 });
@@ -398,6 +419,14 @@ Route::get('/pdf', function()
 			$var = 'jeff';
     return PDF::load(View::make('emails.welcome')->with('var', $var) , 'A4', 'landscape')->show();
 });
+
+
+Route::get('/controller', function() {
+ 	
+	return Route::currentRouteAction();
+
+});
+
 
 
 

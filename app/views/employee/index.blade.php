@@ -20,6 +20,14 @@ Employee
 
 @section('r-pane')
     <div class="col-sm-10 col-md-10 r-pane pull-right">
+
+
+    	@if (Session::has('error'))
+		<div class="alert alert-danger">
+    		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    		{{ Session::get('error') }}
+    	</div>
+		@endif
     	
 
 		@if (Session::has('message'))
@@ -127,6 +135,7 @@ Employee
 		    			{{ Form::label('rfid', 'RFID:', array('class'=>'col-sm-2 control-label')) }}
 						<div class="col-sm-10">						
 							{{ Form::text('rfid', '',array('maxlength'=>'10', 'class'=>'form-control', 'placeholder'=>'RFID')) }}
+							<input type="hidden" name="id" id="id"/>
 							<span class="validation-error-block"></span>
 						</div>
 		    		</div>	    		

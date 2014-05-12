@@ -106,9 +106,13 @@ class MenuManger {
 			)
 		),
 		'reports' => array(
-			'reports' => array(
+			'emp-timelog' => array(
 				'caption' => 'Employee Timelog',
-                'action' => 'emptk'
+                'action' => 'emp-timelog'
+			),
+			'batch-timelog' => array(
+				'caption' => 'Batch Timelog',
+                'action' => 'batch-timelog'
 			)
 		),
 	);
@@ -117,7 +121,9 @@ class MenuManger {
 		$u = explode('/',Request::url());
 		
 		$controllerName = $u[4];
+
         $actionName = isset($u[5]) ? $u[5] : '';
+
 		
 		
 		

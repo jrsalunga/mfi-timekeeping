@@ -82,20 +82,26 @@ Reports
             <div class="col-md-5">
                 <div class="panel panel-default tk-emp">
                     <div class="panel-heading">
-                      Search employee timelogs:
+                      Download employee timelogs
                         <!--<h3 class="panel-title">Search employee timelog:</h3>-->
                     </div>
                     <div class="panel-body">
-                        {{ Form::open(array('id'=>'emp-timelog', 'name'=>'emp-timelog', 'class'=>'table-model form-horizontal', 'role'=>'form', 'data-table'=>'timelog', 'method'=>'GET')) }}
-
+                        {{ Form::open(array('id'=>'batch-timelog', 'name'=>'batch-timelog', 'class'=>'table-model form-horizontal', 'role'=>'form', 'data-table'=>'timelog', 'method'=>'GET')) }}
 
                         <div class="form-group">
-                            {{ Form::label('name', 'Name:', array('class'=>'col-sm-2 control-label')) }}
-                            <div class="col-sm-10">
-                                <input type="text" id="employee" class="form-control search-employee" role="searchfield" placeholder="Search employee" required value="{{{ isset($emp->lastname) ? $emp->lastname.', ' : '' }}}{{{ isset($emp->firstname) ? $emp->firstname : '' }}}">
-                                <input type="hidden" name="employeeid" id="employeeid" value="{{{ isset($emp->id) ? $emp->id : '' }}}">
+                            {{ Form::label('paytype', 'Employees:', array('class'=>'col-sm-3 control-label')) }}
+                            <div class="col-sm-9">           
+                              <div class="btn-group" data-toggle="buttons">
+                              <label class="btn btn-default">
+                                <input type="radio" name="paytype" value="1"> Regular
+                              </label>
+                              <label class="btn btn-default">
+                                <input type="radio" name="paytype" value="2"> Extra
+                              </label>
+                            </div>
                             </div>
                         </div>
+                        
                         <div class="form-group">
                             {{ Form::label('from', 'From:', array('class'=>'col-sm-2 control-label')) }}
                             <div class="col-sm-10">           
@@ -111,7 +117,7 @@ Reports
                         <div class="form-group">
                             
                             <div class="col-sm-12">           
-                              {{ Form::submit('Go', array('class'=>'btn btn-primary model-btn-save pull-right')); }}
+                              {{ Form::submit('Download', array('class'=>'btn btn-primary model-btn-save pull-right')); }}
                             </div>
                         </div>
 
@@ -125,47 +131,7 @@ Reports
             </div>
 
             <div class="col-md-7">
-                  <div style="text-align: right;">
-                 @if (isset($timelogs))
-                    <a href="{{ URL::full().'&export=csv' }}">
-                    <span class="glyphicon glyphicon-export"></span>
-                    CSV
-                    </a>
-                    &nbsp;
-                    <a href="{{ URL::full().'&export=pdf' }}" target="_blank">
-                    <span class="glyphicon glyphicon-download-alt"></span>
-                    PDF
-                    </a>
-                 @endif
-                  </div>
-                <table class="table table-condensed">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Time In</th>
-                    <th>Time Out</th>
-                  </tr>
-                </thead>
-                <tbody class="tk-tb">
-                    @if (isset($timelogs))
-                        @foreach($timelogs as $timelog)
-                        <tr
-                          @if($timelog['day'] == 'Sun')
-                              class="warning"
-                          @endif
-                        >
-                          <td><em>{{ $timelog['day'] }} </em> {{ date('F j, Y', strtotime($timelog['date'])) }}</td>
-                          <td title="{{ $timelog['in'] }}">{{ $timelog['ti'] }}</td>
-                          <td title="{{ $timelog['out'] }}">{{ $timelog['to'] }}</td>
-                      
-                        </tr>
-                        @endforeach
-                    @else
-                       
-                    @endif
-
-                </tbody>
-            </table>
+                 
             </div>
 
         </div>   
@@ -178,51 +144,7 @@ Reports
 
 @section('document-ready')
 <script type="text/javascript">
-function searchEmployee(){
-   $(".search-employee").autocomplete({
-            source: function( request, response ) {
-                $.ajax({
-          type: 'GET',
-          //url: "http://timekeeping.mfi.dev/api/search/employee",
-          url: "{{ Request::root() }}/api/search/employee",
-                    dataType: "json",
-                    data: {
-                        maxRows: 25,
-                        q: request.term
-                    },
-                    success: function( data ) {
-                        response( $.map( data, function( item ) {
-                            return {
-                                label: item.lastname + ', ' + item.firstname,
-                                value: item.lastname + ', ' + item.firstname,
-                id: item.id
-                            }
-                        }));
-                    }
-                });
-            },
-            minLength: 2,
-            select: function( event, ui ) {
-        //console.log(ui);
-                //log( ui.item ? "Selected: " + ui.item.label : "Nothing selected, input was " + this.value);
-  
-        $("#employeeid").val(ui.item.id); /* set the selected id */
-        
-            },
-            open: function() {
-                $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-        $("#employeeid").val('');  /* remove the id when change item */
-            },
-            close: function() {
-                $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-            },
-      messages: {
-        noResults: '',
-        results: function() {}
-      }
-      
-       });
-}
+
 
 
 
@@ -254,7 +176,7 @@ $(document).ready(function(){
 
 
   daterange();
-  searchEmployee();
+
 
 });
 @stop

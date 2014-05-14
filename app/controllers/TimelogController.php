@@ -53,13 +53,25 @@ class TimelogController extends BaseController {
 			$timelog->terminalid 	= Input::get('terminalid');
 			$timelog->id 	 	 	= Timelog::get_uid();
 			
-			if($timelog->save()){
+			
+			try{
+				$timelog->save();
+			}catch(Exception $e){
+				Session::flash('error', 'Error on saving!');
+				return Redirect::route('timelog.index');
+			}
+			
+			Session::flash('message', 'Timelog saved!');
+			return Redirect::route('timelog.index');
+			/*
+			if(){
 				Session::flash('message', 'Timelog saved!');
 				return Redirect::route('timelog.index');
 			} else {
 				Session::flash('error', 'Error on saving!');
 				return Redirect::route('timelog.index');
 			}
+			*/
 			
 			
 		}

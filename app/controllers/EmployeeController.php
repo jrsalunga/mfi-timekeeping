@@ -54,7 +54,15 @@ class EmployeeController extends BaseController {
 			$employee->rfid 	 = Input::get('rfid');
 			$employee->paytype 	 = Input::get('paytype');
 			$employee->id 	 	 = Employee::get_uid();
-			$employee->save();
+			
+			
+			try {
+				$employee->save();
+			}catch(\Exception $e){
+				Session::flash('error', 'Error: '. $e->errorInfo[2]);
+				return Redirect::route('employee.index');
+			}
+			
 
 			// redirect
 			Session::flash('message', 'Successfully created nerd!');
@@ -93,11 +101,21 @@ class EmployeeController extends BaseController {
 				$employee->position  = Input::get('position');
 				$employee->rfid 	 = Input::get('rfid');
 				$employee->paytype 	 = Input::get('paytype');
+				
+				try {
+					$employee->save();
+				}catch(\Exception $e){
+					Session::flash('error', 'Error: '. $e->errorInfo[2]);
+					return Redirect::route('employee.index');
+				}
+				/*
 				if($employee->save()){
 					Session::flash('message', 'Success on updating employee!');
 				} else {
 					Session::flash('error', 'Error on saving!');
 				}
+				*/
+				Session::flash('message', 'Success on updating employee!');
 				return Redirect::route('employee.index');
 			}
 		} else {

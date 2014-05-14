@@ -290,7 +290,7 @@ var keypressInit = function(){
 		var code = e.which || e.keyCode;
 		$('.empno').text('');
 		console.log('keypress');
-		//console.log(code);		
+		console.log(code);		
 		
 		if(code == 13) { //Enter keycode
 
@@ -310,8 +310,8 @@ var keypressInit = function(){
 			
 			endCapture = true;
 			arr = [];
-			
-		} else if((code == 105 || code == 102) && endCapture){ // timein    49="1"
+														 // capslock jenn pc
+		} else if((code == 105 || code == 102 || code == 70) && endCapture){ // timein    49="1"
 				
 			if(validateEmpno(empno)){
 				console.log('Time In: '+ empno);
@@ -322,8 +322,8 @@ var keypressInit = function(){
 			endCapture = false;
 			arr = [];
 			last_empno = '';
-			*/
-		} else if((code == 111 || code == 106) && endCapture){ // timeout	50="2"	or 48 ="0"
+			*/                                         // capslock jenn pc
+		} else if((code == 111 || code == 106 || code == 74) && endCapture){ // timeout	50="2"	or 48 ="0"
 			
 			if(validateEmpno(empno)){
 				console.log('Time Out: '+ empno);

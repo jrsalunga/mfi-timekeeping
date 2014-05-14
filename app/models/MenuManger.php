@@ -68,7 +68,7 @@ class MenuManger {
 						echo ' <span class="glyphicon glyphicon-cog"></span> <b class="caret"></b></a>';
 						echo '<ul class="dropdown-menu">';
 							foreach ($option as $ddk => $ddv) {
-								echo '<li><a href="'.$ddv['action'].'">'.$ddv['caption'].'</a></li>';		
+								echo '<li><a href="/admin/'.$ddv['action'].'">'.$ddv['caption'].'</a></li>';		
 							}
 						echo '</ul>';
 					} else {

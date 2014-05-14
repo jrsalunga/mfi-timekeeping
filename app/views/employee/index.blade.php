@@ -53,6 +53,7 @@ Employee
 	  					<th>Firstname</th>
 	  					<th>Middlename</th>
 	  					<th>Position</th>
+	  					<th>Status</th>	
 	  					<th>RFID</th>
 	  				<tr>
   				</thead>
@@ -132,6 +133,13 @@ Employee
 						</div>
 		    		</div>
 		    		<div class="form-group">
+		    			{{ Form::label('paytype', 'Status:', array('class'=>'col-sm-2 control-label')) }}
+						<div class="col-sm-10">						
+							{{ Form::select('paytype', array('1' => 'Extra', '2' => 'Regular'), '1', array('class'=>'form-control')); }}
+							<span class="validation-error-block"></span>
+						</div>
+		    		</div>
+		    		<div class="form-group">
 		    			{{ Form::label('rfid', 'RFID:', array('class'=>'col-sm-2 control-label')) }}
 						<div class="col-sm-10">						
 							{{ Form::text('rfid', '',array('maxlength'=>'10', 'class'=>'form-control', 'placeholder'=>'RFID')) }}
@@ -178,6 +186,7 @@ $(document).ready(function(){
 						+'<td><%- firstname %></td>'
 						+'<td><%- middlename %></td>'
 						+'<td><%- position %></td>'
+						+'<td><%- paytype %></td>'
 						+'<td><%- rfid %></td>');
 	var employees = new Employees(pagination.models[0].attributes.data);
 	var tbDataTableView = new TBDataTableView({collection: employees, template: tmpl, el: '.tb-employee tbody',});

@@ -52,6 +52,7 @@ class EmployeeController extends BaseController {
 			$employee->middlename = Input::get('middlename');
 			$employee->position  = Input::get('position');
 			$employee->rfid 	 = Input::get('rfid');
+			$employee->paytype 	 = Input::get('paytype');
 			$employee->id 	 	 = Employee::get_uid();
 			$employee->save();
 
@@ -91,6 +92,7 @@ class EmployeeController extends BaseController {
 				$employee->middlename = Input::get('middlename');
 				$employee->position  = Input::get('position');
 				$employee->rfid 	 = Input::get('rfid');
+				$employee->paytype 	 = Input::get('paytype');
 				if($employee->save()){
 					Session::flash('message', 'Success on updating employee!');
 				} else {

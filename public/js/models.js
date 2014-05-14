@@ -37,5 +37,18 @@ var Timelog = Backbone.Model.extend({
 var timelog = new Timelog();
 
 
-var Employee = Backbone.Model.extend({});
+var Employee = Backbone.Model.extend({
+	initialize: function(){
+		this.changePaytype();
+	},
+	changePaytype: function(){
+		if(this.get('paytype') == 1){
+			this.set('paytype', 'Extra');
+		} else if(this.get('paytype') == 2){
+			this.set('paytype', 'Regular');
+		} else {
+
+		}
+	}
+});
 var employee = new Employee();

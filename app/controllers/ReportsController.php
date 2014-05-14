@@ -88,7 +88,7 @@ class ReportsController extends BaseController {
 						
 						
 						
-						array_push($output, array($employee->lastname .', '. $employee->firstname, '', '', $employee->rfid, '', ''));
+						array_push($output, array($employee->lastname .', '. $employee->firstname, '', '', 'rfid: '.$employee->rfid, '', ''));
 						array_push($output, array('', '', '', '', '', ''));					
 						array_push($output, array('Day', 'Date', 'In(24)', 'Out(24)', 'In(12)', 'Out(12)'));	
 						

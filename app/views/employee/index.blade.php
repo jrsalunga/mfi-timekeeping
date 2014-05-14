@@ -186,7 +186,7 @@ $(document).ready(function(){
 						+'<td><%- firstname %></td>'
 						+'<td><%- middlename %></td>'
 						+'<td><%- position %></td>'
-						+'<td><%- paytype %></td>'
+						+'<td><%- status %></td>'
 						+'<td><%- rfid %></td>');
 	var employees = new Employees(pagination.models[0].attributes.data);
 	var tbDataTableView = new TBDataTableView({collection: employees, template: tmpl, el: '.tb-employee tbody',});

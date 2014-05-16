@@ -44,10 +44,11 @@ class TimelogController extends BaseController {
 			//return Redirect::to('admin/transactions/timelog');
 
 		} else {
+			$time = strftime('%H:%M:%S', strtotime(Input::get('time')));
 			
 			$timelog = new Timelog;
 			$timelog->employeeid    = Input::get('employeeid');
-			$timelog->datetime 		= Input::get('date').' '.Input::get('time');
+			$timelog->datetime 		= Input::get('date').' '.$time;
 			$timelog->txncode 	 	= Input::get('txncode');
 			$timelog->entrytype  	= Input::get('entrytype');
 			$timelog->terminalid 	= Input::get('terminalid');

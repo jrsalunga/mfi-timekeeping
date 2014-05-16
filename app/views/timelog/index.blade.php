@@ -154,7 +154,7 @@ Employee Timelog
 		    		<div class="form-group">
 		    			{{ Form::label('time', 'Time:', array('class'=>'col-sm-2 control-label')) }}
 						<div class="col-sm-10">						
-							{{ Form::text('time', strftime("%I:%M:%S", strtotime("now")),array('maxlength'=>'8', 'required'=>'', 'class'=>'form-control', 'placeholder'=>'HH:MM:SS')) }}
+							{{ Form::text('time', strftime("%I:%M:%S", strtotime("now")),array('maxlength'=>'11', 'required'=>'', 'class'=>'form-control', 'placeholder'=>'HH:MM:SS')) }}
 							<span class="validation-error-block"></span>
 						</div>
 		    		</div>

@@ -41,14 +41,14 @@ var Employee = Backbone.Model.extend({
 	initialize: function(){
 		this.changePaytype();
 	},
-	changePaytype: function(){
-		if(this.get('paytype') == 1){
-			this.set('status', 'Extra');
-		} else if(this.get('paytype') == 2){
-			this.set('status', 'Regular');
-		} else {
-
+		changePaytype: function(){
+			if(this.get('paytype') == 2){
+				this.set('status', 'Extra');
+			} else if(this.get('paytype') == 1){
+				this.set('status', 'Regular');
+			} else {
+	
+			}
 		}
-	}
 });
 var employee = new Employee();

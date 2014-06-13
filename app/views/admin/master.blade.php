@@ -7,7 +7,7 @@
 <meta http-equiv="Cache-control" content="public">
 
 <title> 
-	MFI Timekepping - @section('title') 
+	MFI Timekeeping - @section('title') 
 	@show
 </title>
 

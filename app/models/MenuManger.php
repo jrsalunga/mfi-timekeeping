@@ -150,7 +150,24 @@ class MenuManger {
 		
 	}
 	
-	
-	
-	
+	public static function tableHeader($action, $title, $field='id', $order=ASC, $q=NULL){
+
+		$o = (strtoupper($order) == 'ASC') ? 'desc':'asc';
+		$sort = explode(':', Input::get('sortBy'));
+
+		if($sort[0] == $field){
+			$param = array('class' => $o);
+		} else {
+			$param = array();
+		}
+
+		if(empty($q)){
+			return link_to_action($action, $title, array('sortBy' => $field.':'.$o), $param);
+		} else {
+			return link_to_action($action, $title, array('sortBy' => $field.':'.$o, 'q' => $q),  $param);
+		}
+	}	
+		                   
+		                    	
+		        		   
 }

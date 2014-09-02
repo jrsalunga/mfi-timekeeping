@@ -51,13 +51,27 @@ Employee
     		<table class="table table-condensed tb-employee">
   				<thead>
   					<tr>
-	  					<th>Emp No</th>
-	  					<th>Lastname</th>
-	  					<th>Firstname</th>
-	  					<th>Middlename</th>
-	  					<th>Position</th>
-	  					<th>Status</th>	
-	  					<th>RFID</th>
+	  					<th>
+	  						{{ MenuManger::tableHeader('EmployeeController@index', 'Emp No', 'code', $order, $q) }}
+	  					</th>
+	  					<th>
+	  						{{ MenuManger::tableHeader('EmployeeController@index', 'Lastname', 'lastname', $order, $q) }}
+	  					</th>
+	  					<th>
+	  						{{ MenuManger::tableHeader('EmployeeController@index', 'Firstname', 'firstname', $order, $q) }}
+	  					</th>
+	  					<th>
+	  						{{ MenuManger::tableHeader('EmployeeController@index', 'Middlename', 'middlename', $order, $q) }}
+	  					</th>
+	  					<th>
+	  						{{ MenuManger::tableHeader('EmployeeController@index', 'Position', 'position', $order, $q) }}
+	  					</th>
+	  					<th>
+	  						{{ MenuManger::tableHeader('EmployeeController@index', 'Status', 'paytype', $order, $q) }}
+	  					</th>	
+	  					<th>
+	  						{{ MenuManger::tableHeader('EmployeeController@index', 'RFID', 'rfid', $order, $q) }}
+	  					</th>
 	  				<tr>
   				</thead>
   				<tbody>
@@ -138,7 +152,7 @@ Employee
 		    		<div class="form-group">
 		    			{{ Form::label('paytype', 'Status:', array('class'=>'col-sm-2 control-label')) }}
 						<div class="col-sm-10">						
-							{{ Form::select('paytype', array('2' => 'Extra', '1' => 'Regular'), '1', array('class'=>'form-control')); }}
+							{{ Form::select('paytype', array('2' => 'Extra', '1' => 'Regular', '100' => 'Resigned'), '1', array('class'=>'form-control')); }}
 							<span class="validation-error-block"></span>
 						</div>
 		    		</div>

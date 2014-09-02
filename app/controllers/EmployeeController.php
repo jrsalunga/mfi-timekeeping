@@ -8,8 +8,15 @@ class EmployeeController extends BaseController {
 		//$employees = Employee::orderBy('lastname', 'ASC')->get();
 		
 		//$employees = Employee::orderBy('lastname', 'ASC')->paginate(10);
+		$q = Input::get('q');
 		$rows = !is_null(Input::get('maxRow')) ? Input::get('maxRow') : 10;
-		
+		$sortBy = !is_null(Input::get('sortBy')) ? Input::get('sortBy') : 'lastname:asc';
+		$sort = explode(':', $sortBy);
+
+		$sort[1] = isset($sort[1]) ? $sort[1] : 'ASC';
+		$sort[1] = (strcmp(strtoupper($sort[1]), 'ASC') || strcmp(strtoupper($sort[1]), 'DESC')) ? $sort[1] : 'ASC';
+
+		/*
 		if(is_null(Input::get('q'))){
 			$employees = Employee::orderBy('lastname', 'ASC')->paginate($rows);
 		} else {
@@ -20,8 +27,33 @@ class EmployeeController extends BaseController {
 									->where('code', 'like', '%'.$q.'%', 'OR')
 									->orderBy('lastname', 'ASC')->paginate($rows);
 		}
+		*/
+
+		$query = DB::table('employee');
+
+		if(!is_null($q)){
+			
+			$query->where('lastname', 'like', '%'.$q.'%')
+				  ->where('firstname', 'like', '%'.$q.'%', 'OR')
+				  ->where('middlename', 'like', '%'.$q.'%', 'OR')
+				  ->where('code', 'like', '%'.$q.'%', 'OR');	
+
+		}
 		
-		return View::make('employee.index')->with('employees', $employees);
+
+		$query->orderBy($sort[0], $sort[1]);
+		$employees = $query->paginate($rows);
+
+		if(!is_null(Input::get('q'))){
+			$employees->appends(array('q' => Input::get('q')));
+		}
+		$employees->appends(array('sortBy' => $sort[0].':'.$sort[1]));
+
+		$order = $sort[1];
+		//echo $sortby.' - '.$order;
+		
+		//return View::make('employee.index')->with('employees', $employees);
+		return View::make('employee.index', compact('employees', 'order', 'q'));
 	}
 	
 	public function show() {

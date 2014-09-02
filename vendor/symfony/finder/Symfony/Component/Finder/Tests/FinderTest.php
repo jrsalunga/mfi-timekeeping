@@ -16,7 +16,6 @@ use Symfony\Component\Finder\Adapter;
 
 class FinderTest extends Iterator\RealIteratorTestCase
 {
-
     public function testCreate()
     {
         $this->assertInstanceOf('Symfony\Component\Finder\Finder', Finder::create());
@@ -796,7 +795,7 @@ class FinderTest extends Iterator\RealIteratorTestCase
         );
     }
 
-   /**
+    /**
      * Searching in multiple locations with sub directories involves
      * AppendIterator which does an unnecessary rewind which leaves
      * FilterIterator with inner FilesystemIterator in an invalid state.
@@ -824,6 +823,10 @@ class FinderTest extends Iterator\RealIteratorTestCase
 
     public function testNonSeekableStream()
     {
+        if (!in_array('ftp', stream_get_wrappers())) {
+            $this->markTestSkipped(sprintf('Unavailable stream "%s".', 'ftp'));
+        }
+
         try {
             $i = Finder::create()->in('ftp://ftp.mozilla.org/')->depth(0)->getIterator();
         } catch (\UnexpectedValueException $e) {

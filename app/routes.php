@@ -12,8 +12,10 @@ Route::get('/', function() {
 	$sql .= "LIMIT 20";
 	
 	$employees = DB::select($sql);
+	$first = $employees[0];
 	
-	return View::make('home.index')->with('employees', $employees);
+	return View::make('home.index', compact('first', 'employees'));
+	//return View::make('home.index')->with('employees', $employees);
 });
 
 

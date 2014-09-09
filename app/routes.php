@@ -4,7 +4,7 @@
 
 Route::get('/', function() {
 	
-	$sql = "SELECT employee.code, employee.lastname, employee.firstname, DATE(timelog.datetime) as date, ";
+	$sql = "SELECT employee.code, employee.lastname, employee.firstname, employee.position, DATE(timelog.datetime) as date, ";
 	$sql .= "TIME(timelog.datetime) as time, timelog.txncode as type, employee.rfid ";
 	$sql .= "FROM employee , timelog ";
 	$sql .= "WHERE employee.id = timelog.employeeid ";
@@ -69,7 +69,6 @@ Route::post('admin/login', function(){
 
 Route::get('admin/logout', array('as'=>'admin.logout', 'uses'=>'AdminController@logout'));
 Route::get('admin/settings', array('as'=>'admin.settings', 'uses'=>'AdminController@settings'));
-
 Route::post('api/timelog', array('as'=>'timelog.post', 'uses'=>'TimelogController@post'));
 Route::get('api/employee/{field?}/{value?}', array('as'=>'field.get', 'uses'=>'EmployeeController@getByField'));
 Route::get('api/search/{field?}', array('as'=>'search.field', 'uses'=>'SearchController@searchTable'));

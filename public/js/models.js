@@ -43,11 +43,13 @@ var Employee = Backbone.Model.extend({
 	},
 		changePaytype: function(){
 			// if office
-			
+			//console.log(this.get('lastname')+' = '+this.get('paytype'));
 			if(this.get('paytype') == 2){
 				this.set('status', 'Extra');
 			} else if(this.get('paytype') == 1){
 				this.set('status', 'Regular');
+			} else if(this.get('paytype') == 100){
+				this.set('status', 'Resigned');
 			} else {
 	
 			}

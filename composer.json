@@ -7,7 +7,9 @@
 		"laravel/framework": "4.1.*",
 		"cboden/Ratchet": "0.3.*",
 		"maatwebsite/excel": "dev-master",
-		"thujohn/pdf": "dev-master"
+		"thujohn/pdf": "dev-master",
+		"anlutro/curl": "dev-master",
+		"mandrill/mandrill": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

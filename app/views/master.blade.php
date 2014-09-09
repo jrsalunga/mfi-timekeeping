@@ -15,8 +15,35 @@
 	{{ HTML::style('css/style.css') }}
 	
 </head>
+<style type="text/css">
+.notify{
+	position: fixed;
+	z-index: 1030;
+	top: 0;
+	width: 100%;
+	background-color: transparent;
+}
+.notify .inner{
+	position: relative;
+	white-space: nowrap;
+	z-index: 1030;	
+	width: 100px;
+	border: 1px solid #f0c36d;
+	background-color: #f9edbe;
+	margin-right: auto;
+	margin-left: auto;
+	padding: 5px;
+	text-align: center;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+	font-weight: bold;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+}
+</style>
 <body>
 <!-- Fixed navbar -->
+
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   	<div>
         <div class="navbar-header">
@@ -31,6 +58,11 @@
         	<p><span class="glyphicon glyphicon-time"></span> Timekeeping</p>
         </div>
     </div>
+</div>
+<div class="notify" style="display: none">
+	<div class="inner">
+		Loading...
+	</div>
 </div>
 <!-- endixed navbar -->
 <div class="container-tk-block">

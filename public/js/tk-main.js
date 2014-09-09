@@ -1,3 +1,10 @@
+$.ajaxSetup({
+	beforeSend: function(jqXHR, obj) {
+    	//xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
+    	//console.log('loading..');
+    	$('.notify').css('display', 'block');
+  	}
+});
 
 
 var buildEmployeesTimelogs = function(data){
@@ -18,10 +25,11 @@ var getEmployeeTimelogs = function(id){
 		url: '/api/timelog/employee/'+ id,
         dataType: "json",
         async: false,
-       // data: formData,
+       	// data: formData,
         success: function(data, textStatus, jqXHR){
             aData = data;
 			//updateTKmodal(data);
+			$('.notify').css('display', 'none');
         },
         error: function(jqXHR, textStatus, errorThrown){
 			$('.message-group').html('<div class="alert alert-danger">Could not connect to server!</div>');
@@ -231,9 +239,15 @@ var postTimelog = function(empno, tc){
         dataType: "json",
         async: false,
         data: formData,
+        beforeSend: function(jqXHR, obj) {
+       		$('.notify .inner').html('Saving...');
+	    	$('.notify').css('display', 'block');
+  		},
         success: function(data, textStatus, jqXHR){
             aData = data;
 			updateTK(data);
+			$('.notify').css('display', 'none');
+			$('.notify .inner').html('Loading...');
         },
         error: function(jqXHR, textStatus, errorThrown){
 			$('.message-group').html('<div class="alert alert-danger">Could not connect to server!</div>');
@@ -256,15 +270,19 @@ var getEmployee = function(empno){
         success: function(data, textStatus, jqXHR){
             aData = data;
 			//updateTKmodal(data);
+			//console.log('success..');
+			$('.notify').css('display', 'none');
         },
         error: function(jqXHR, textStatus, errorThrown){
 			$('.message-group').html('<div class="alert alert-danger">Could not connect to server!</div>');
             //alert(textStatus + ' Failed on posting data');
+            console.log('error..');
         }
     });	
 	
 	return aData;
 }
+
 
 var keypressInit = function(){
 	
@@ -289,8 +307,8 @@ var keypressInit = function(){
 	$(this).bind('keypress', function(e){
 		var code = e.which || e.keyCode;
 		$('.empno').text('');
-		console.log('keypress');
-		console.log(code);		
+		//console.log('keypress');
+		//console.log(code);		
 		
 		if(code == 13) { //Enter keycode
 

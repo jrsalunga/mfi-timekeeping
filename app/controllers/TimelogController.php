@@ -141,20 +141,19 @@ class TimelogController extends BaseController {
 			'datetime'      => 'required',
 			'txncode'      	=> 'required',
 			'entrytype'     => 'required',
-			'terminalid'    => 'required',
+			//'terminalid'    => 'required',
 		);
 		
 		$validator = Validator::make(Input::all(), $rules);
 
-		if ($validator->fails()) {
+		if($validator->fails()) {
 			
 			$respone = array(
 					'code'=>'400',
 					'status'=>'error',
 					'message'=>'Error on validation',
-					'data'=> $validator
+					//'data'=> $validator
 			);
-			return json_encode('failed');
 		} else {
 			$employee = Employee::where('rfid', '=', Input::get('rfid'))->get();
 			
@@ -168,46 +167,64 @@ class TimelogController extends BaseController {
 				);	
 			} else {
 			
-			$timelog = new Timelog;
-			//$timelog->employeeid	= Input::get('employeeid');
-			$timelog->employeeid    = $employee[0]->id;
-			$timelog->datetime 		= Input::get('datetime');
-			$timelog->txncode 	 	= Input::get('txncode');
-			$timelog->entrytype  	= Input::get('entrytype');
-			//$timelog->terminalid 	= Input::get('terminalid');
-			$timelog->terminalid 	= gethostname();
-			$timelog->id 	 	 	= Timelog::get_uid();
-			
-			$timelog->save();
-		
-			Session::flash('message', 'Successfully created nerd!');
-			//return json_encode($employee[0]);
-			
-				$datetime = explode(' ',$timelog->datetime);
-				$txncode = $timelog->txncode=='to' ? 'Time Out':'Time In';
-			
-				$data = array(
-					'empno'		=> $employee[0]->code,
-					'lastname'	=> $employee[0]->lastname,
-					'firstname'	=> $employee[0]->firstname,
-					'middlename'=> $employee[0]->middlename,
-					'position'	=> $employee[0]->position ,
-					'date'		=> $datetime[0] ,
-					'time'		=> $datetime[1] ,
-					'txncode'	=> $txncode
-					
-				);
-			
-				$respone = array(
-						'code'=>'200',
-						'status'=>'success',
-						'message'=>'Record saved!',
-						'data'=> $data
-				);				
+				$timelog = new Timelog;
+				//$timelog->employeeid	= Input::get('employeeid');
+				$timelog->employeeid    = $employee[0]->id;
+				$timelog->datetime 		= Input::get('datetime');
+				$timelog->txncode 	 	= Input::get('txncode');
+				$timelog->entrytype  	= Input::get('entrytype');
+				//$timelog->terminalid 	= Input::get('terminalid');
+				$timelog->terminalid 	= gethostname();
+				$timelog->id 	 	 	= Timelog::get_uid();
+				
+				if($timelog->save()){
+
+					$url = cURL::buildUrl('http://mfi-htk.herokuapp.com/htk/api/timelog', array());
+					$response = cURL::post($url, $timelog->toArray());
+
+					if(strpos($response->code, '200') !== false){
+						$respone = array(
+							'code'=>'200',
+							'status'=>'success',
+							'message'=>'Record saved and replicated on cloud!',
+						);			
+						$timelog->replicated = 1;
+						$timelog->save();
+					} else {
+						$respone = array(
+							'code'=>'200',
+							'status'=>'success',
+							'message'=>'Record saved on local but not replicated on cloud!',
+						);
+					}
+
+					$datetime = explode(' ',$timelog->datetime);
+					$txncode = $timelog->txncode=='to' ? 'Time Out':'Time In';
+				
+					$data = array(
+						'empno'		=> $employee[0]->code,
+						'lastname'	=> $employee[0]->lastname,
+						'firstname'	=> $employee[0]->firstname,
+						'middlename'=> $employee[0]->middlename,
+						'position'	=> $employee[0]->position ,
+						'date'		=> $datetime[0] ,
+						'time'		=> $datetime[1] ,
+						'txncode'	=> $txncode
+						
+					);
+				
+					$respone['data'] = $data;
+
+				} else {
+					$respone = array(
+						'code'=>'400',
+						'status'=>'error',
+						'message'=>'Error on saving locally!',
+					);	
+				}				
 			}
-			
-			return json_encode($respone);
 		}
+		return json_encode($respone);
 	}
 
 

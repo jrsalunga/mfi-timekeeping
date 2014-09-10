@@ -1,34 +1,30 @@
 $.ajaxSetup({
 	beforeSend: function(jqXHR, obj) {
-    	//xhr.overrideMimeType( "text/plain; charset=x-user-defined" );
-    	//console.log('loading..');
     	$('.notify').css('display', 'block');
   	}
 });
 
 
 var buildEmployeesTimelogs = function(data){
-	
-		
-		var tmlgs = getEmployeeTimelogs(data.data.id)
-		var html = htmlEmployeeTimelogs2(tmlgs);
-		//$('#TimelogModal .modal-body').html(html);
-
+	/*	
+	var tmlgs = getEmployeeTimelogs(data.data.id)
+	var html = htmlEmployeeTimelogs2(tmlgs);
+	*/
+	getEmployeeTimelogs(data.data.id).done(function(data){
+		htmlEmployeeTimelogs2(data);
+	});
 };
 
 var getEmployeeTimelogs = function(id){
-	var aData;
-	
-	$.ajax({
+	//var aData;
+	return $.ajax({
         type: 'GET',
         contentType: 'application/json',
 		url: '/api/timelog/employee/'+ id,
         dataType: "json",
-        async: false,
-       	// data: formData,
+        //async: false,
         success: function(data, textStatus, jqXHR){
-            aData = data;
-			//updateTKmodal(data);
+            //aData = data;
 			$('.notify').css('display', 'none');
         },
         error: function(jqXHR, textStatus, errorThrown){
@@ -37,7 +33,7 @@ var getEmployeeTimelogs = function(id){
         }
     });	
 	
-	return aData;
+	//return aData;
 }
 
 var htmlEmployeeTimelogs2 = function(data){
@@ -54,7 +50,6 @@ var htmlEmployeeTimelogs2 = function(data){
 	
 	$('#TimelogModal .modal-body').prepend(html);
 	
-	
 	for(i=0; i<data.length; i++) {
 		
 		var h = '';
@@ -69,17 +64,8 @@ var htmlEmployeeTimelogs2 = function(data){
 		h += '<td>'+ data[i].to +'</td>';
 		h += '</tr>';
 		
-		
-		
-		$('.tk-tb').prepend(h);
-		
-		//console.log($('tbody', html));
-		//console.log(data[i].date);
+		$('.tk-tb').prepend(h);	
 	}
-	
-	
-	
-	//return html;
 }
 
 
@@ -164,7 +150,7 @@ var updateTK = function(data){
 	var html = '<div class="alert alert-'+ data.status +'">'+ data.message +'</div>';	
 	$('.message-group').html(html);
 	
-	if(data && data.code=='200'){
+	if(data && data.code=='200' || data.code=='201'){
 		appendToTkList(data);	
 		updateEmpView(data);
 		
@@ -195,11 +181,7 @@ var updateTKmodal = function(data){
 	}
 }
 
-
-
-
-var isInt = function(n) {
-	
+var isInt = function(n) {	
    return n % 1 === 0;
 }
 
@@ -221,7 +203,7 @@ var validateEmpno = function(empno){
 }
 
 var postTimelog = function(empno, tc){
-	var aData;
+	//var aData;
 	var formData = {
 		rfid : empno,
 		datetime: moment().tz("Asia/Manila").format('YYYY-MM-DD HH:mm:ss'),
@@ -232,20 +214,20 @@ var postTimelog = function(empno, tc){
 	
 	console.log(formData);
 	
-	$.ajax({
+	return $.ajax({
         type: 'POST',
         contentType: 'application/x-www-form-urlencoded',
 		url: '/api/timelog',
         dataType: "json",
-        async: false,
+        //async: false,
         data: formData,
         beforeSend: function(jqXHR, obj) {
        		$('.notify .inner').html('Saving...');
 	    	$('.notify').css('display', 'block');
   		},
         success: function(data, textStatus, jqXHR){
-            aData = data;
-			updateTK(data);
+            //aData = data;
+			//updateTK(data);
 			$('.notify').css('display', 'none');
 			$('.notify .inner').html('Loading...');
         },
@@ -258,17 +240,16 @@ var postTimelog = function(empno, tc){
 
 
 var getEmployee = function(empno){
-	var aData;
+	//var aData;
 	
-	$.ajax({
+	return $.ajax({
         type: 'GET',
         contentType: 'application/json',
 		url: '/api/employee/rfid/'+ empno,
         dataType: "json",
-        async: false,
-       // data: formData,
+        //async: false,
         success: function(data, textStatus, jqXHR){
-            aData = data;
+            //aData = data;
 			//updateTKmodal(data);
 			//console.log('success..');
 			$('.notify').css('display', 'none');
@@ -276,11 +257,11 @@ var getEmployee = function(empno){
         error: function(jqXHR, textStatus, errorThrown){
 			$('.message-group').html('<div class="alert alert-danger">Could not connect to server!</div>');
             //alert(textStatus + ' Failed on posting data');
-            console.log('error..');
+            //console.log('error..');
         }
     });	
 	
-	return aData;
+	//return aData;
 }
 
 
@@ -319,8 +300,14 @@ var keypressInit = function(){
 			if(validateEmpno(empno) && last_empno != empno){
 				console.log('Fetching employee: '+ empno);
 				
-				empData = getEmployee(empno);
-				updateTKmodal(empData);
+				//empData = getEmployee(empno);
+				//updateTKmodal(empData);
+
+				getEmployee(empno).done(function(data){
+					updateTKmodal(data);
+					empData = data;
+				});
+
 				last_empno = empno;
 			} else {
 				console.log('Same Empno')	
@@ -333,7 +320,10 @@ var keypressInit = function(){
 				
 			if(validateEmpno(empno)){
 				console.log('Time In: '+ empno);
-				postTimelog(empno,'ti');
+				//postTimelog(empno,'ti');
+				postTimelog(empno,'ti').done(function(data){
+					updateTK(data);
+				});
 			}		
 			$('#TKModal').modal('hide');
 			/* on modal hide do this
@@ -345,13 +335,17 @@ var keypressInit = function(){
 			
 			if(validateEmpno(empno)){
 				console.log('Time Out: '+ empno);
-				postTimelog(empno,'to');
+				//postTimelog(empno,'to');
+				postTimelog(empno,'to').done(function(data){
+					updateTK(data);
+				});
 			}
 			$('#TKModal').modal('hide');
+			/*
 			endCapture = false;
 			arr = [];
 			last_empno = '';
-			
+			*/
 		} else if((code == 116 || code == 64 || code == 114 || code == 84) && endCapture){ // press view timelogs
 			$('#TKModal').modal('hide');
 			if(validateEmpno(empno)){

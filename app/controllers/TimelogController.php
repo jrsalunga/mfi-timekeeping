@@ -175,7 +175,7 @@ class TimelogController extends BaseController {
 				$timelog->entrytype  	= Input::get('entrytype');
 				//$timelog->terminalid 	= Input::get('terminalid');
 				$timelog->terminalid 	= gethostname();
-				$timelog->id 	 	 	= Timelog::get_uid();
+				$timelog->id 	 	 	= strtoupper(Timelog::get_uid());
 				
 				if($timelog->save()){
 

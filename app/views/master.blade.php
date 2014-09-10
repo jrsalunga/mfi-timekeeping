@@ -90,7 +90,7 @@
 			</div>
 			<div class="emp-group">
 				<div class="img-cont">
-					<img  id="emp-img" src="images/{{ $first->code }}.jpg" height="140px" width="140px" >
+					<img  id="emp-img" src="/images/employees/{{ $first->code }}.jpg" height="140px" width="140px" >
 				</div>
 				<div class="emp-cont">
 					<p id="emp-code">{{ $first->code }}</p>

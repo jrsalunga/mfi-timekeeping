@@ -68,7 +68,10 @@ class AdminController extends BaseController {
 	
 	}
 	
-	
+	public function restricted() {
+		
+		return View::make('admin.restricted');		
+	}
 
 	
 

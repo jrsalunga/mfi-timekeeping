@@ -27,21 +27,21 @@ Route::get('/', function() {
 
 Route::get('admin', array('before' => 'auth', 'as'=>'admin.index', 'uses'=>'AdminController@index'));
 
-Route::get('admin/masterfiles', array('before' => 'auth', 'as'=>'admin.masterfiles.index', 'uses'=>'MasterfilesController@index'));
-Route::get('admin/masterfiles/employee', array('before' => 'auth', 'as'=>'employee.index', 'uses'=>'EmployeeController@index'));
-Route::post('admin/masterfiles/employee', array('before' => 'auth', 'as'=>'employee.create', 'uses'=>'EmployeeController@create', 'before' => 'csrf'));
-Route::put('admin/masterfiles/employee', array('before' => 'auth', 'as'=>'employee.update', 'uses'=>'EmployeeController@update', 'before' => 'csrf'));
-Route::delete('admin/masterfiles/employee', array('before' => 'auth', 'as'=>'employee.delete', 'uses'=>'EmployeeController@delete', 'before' => 'csrf'));
+Route::get('admin/masterfiles', array('before' => 'auth-admin', 'as'=>'admin.masterfiles.index', 'uses'=>'MasterfilesController@index'));
+Route::get('admin/masterfiles/employee', array('before' => 'auth-admin', 'as'=>'employee.index', 'uses'=>'EmployeeController@index'));
+Route::post('admin/masterfiles/employee', array('before' => 'auth-admin', 'as'=>'employee.create', 'uses'=>'EmployeeController@create', 'before' => 'csrf'));
+Route::put('admin/masterfiles/employee', array('before' => 'auth-admin', 'as'=>'employee.update', 'uses'=>'EmployeeController@update', 'before' => 'csrf'));
+Route::delete('admin/masterfiles/employee', array('before' => 'auth-admin', 'as'=>'employee.delete', 'uses'=>'EmployeeController@delete', 'before' => 'csrf'));
 //Route::get('admin/masterfiles/employee/add', array('as'=>'employee.create', 'uses'=>'EmployeeController@create'));
-Route::get('admin/masterfiles/department', array('before' => 'auth', 'as'=>'department.index', 'uses'=>'DepartmentController@index'));
+Route::get('admin/masterfiles/department', array('before' => 'auth-admin', 'as'=>'department.index', 'uses'=>'DepartmentController@index'));
 
 
 
-Route::get('admin/transactions', array('before' => 'auth', 'as'=>'admin.transactions.index', 'uses'=>'TransactionsController@index'));
-Route::get('admin/transactions/timelog', array('before' => 'auth', 'as'=>'timelog.index', 'uses'=>'TimelogController@index'));
-Route::post('admin/transactions/timelog', array('before' => 'auth', 'as'=>'timelog.create', 'uses'=>'TimelogController@create', 'before' => 'csrf'));
-Route::put('admin/transactions/timelog', array('before' => 'auth', 'as'=>'timelog.update', 'uses'=>'TimelogController@update', 'before' => 'csrf'));
-Route::delete('admin/transactions/timelog', array('before' => 'auth', 'as'=>'timelog.remove', 'uses'=>'TimelogController@remove', 'before' => 'csrf'));
+Route::get('admin/transactions', array('before' => 'auth-admin', 'as'=>'admin.transactions.index', 'uses'=>'TransactionsController@index'));
+Route::get('admin/transactions/timelog', array('before' => 'auth-admin', 'as'=>'timelog.index', 'uses'=>'TimelogController@index'));
+Route::post('admin/transactions/timelog', array('before' => 'auth-admin', 'as'=>'timelog.create', 'uses'=>'TimelogController@create', 'before' => 'csrf'));
+Route::put('admin/transactions/timelog', array('before' => 'auth-admin', 'as'=>'timelog.update', 'uses'=>'TimelogController@update', 'before' => 'csrf'));
+Route::delete('admin/transactions/timelog', array('before' => 'auth-admin', 'as'=>'timelog.remove', 'uses'=>'TimelogController@remove', 'before' => 'csrf'));
 
 
 
@@ -55,6 +55,7 @@ Route::get('admin/reguser', array('as'=>'admin.reguser', 'uses'=>'AdminControlle
 Route::get('admin/login', array('as'=>'admin.login', 'uses'=>'AdminController@login'));
 
 Route::post('admin/login', array('as'=>'admin.login.post', 'uses'=>'AdminController@postLogin'));
+Route::get('admin/restricted', array('before'=>'auth', 'as'=>'admin.restricted', 'uses'=>'AdminController@restricted'));
 /*
 Route::post('admin/login', function(){
 	$user = array(

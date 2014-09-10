@@ -16,6 +16,7 @@ on sync to tk-office
 
 # 09/10/2014
 >alter table timelog add column replicated boolean default 0 after terminalid
+>alter table user add column remember_token  varchar(100) after username
 
 >sudo apt-get install php5-curl
 >sudo service apache2 restart

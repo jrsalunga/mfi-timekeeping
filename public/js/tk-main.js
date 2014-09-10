@@ -209,7 +209,7 @@ var postTimelog = function(empno, tc){
 		datetime: moment().tz("Asia/Manila").format('YYYY-MM-DD HH:mm:ss'),
 		txncode: tc,
 		entrytype: '1',
-		terminalid: 'plant' 
+		//terminalid: 'plant' gethostname
 	}
 	
 	console.log(formData);

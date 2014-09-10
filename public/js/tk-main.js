@@ -323,9 +323,10 @@ var keypressInit = function(){
 				//postTimelog(empno,'ti');
 				postTimelog(empno,'ti').done(function(data){
 					updateTK(data);
+					$('#TKModal').modal('hide');
 				});
 			}		
-			$('#TKModal').modal('hide');
+			
 			/* on modal hide do this
 			endCapture = false;
 			arr = [];
@@ -338,9 +339,10 @@ var keypressInit = function(){
 				//postTimelog(empno,'to');
 				postTimelog(empno,'to').done(function(data){
 					updateTK(data);
+					$('#TKModal').modal('hide');
 				});
 			}
-			$('#TKModal').modal('hide');
+			
 			/*
 			endCapture = false;
 			arr = [];

@@ -431,6 +431,29 @@ Route::get('/controller', function() {
 
 
 
+Route::get('/timelog-api', function(){
+    //$curl = new anlutro\cURL\cURL;
+    //$url = $curl->buildUrl('http://htk.mfi.com/api/test', []);
+    //$response = $curl->post($url, ['post' => 'data']);
+    $timelog = new Timelog;
+    $timelog->employeeid    = '10A782CFECEA11E28649235D6C08DF49';
+    $timelog->datetime      = '2014-09-08 11:16:06';
+    $timelog->txncode       = 'ti';
+    $timelog->entrytype     = '1';
+    $timelog->terminalid    = 'local';
+    $timelog->id            = Timelog::get_uid();
+
+
+    $url = cURL::buildUrl('http://htk.mfi.com/htk/api/timelog', array());
+    $response = cURL::post($url, $timelog->toArray());
+
+    echo $response->code.'<br>';
+    echo $response->body.'<br>';
+    echo json_encode($response->headers);
+});
+
+
+
 
 
 

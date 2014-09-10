@@ -107,7 +107,8 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
-		'Thujohn\Pdf\PdfServiceProvider'
+		'Thujohn\Pdf\PdfServiceProvider',
+		'anlutro\cURL\Laravel\cURLServiceProvider',
 
 	),
 
@@ -176,6 +177,7 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Excel'			  => 'Maatwebsite\Excel\Facades\Excel',
 		'PDF' 			  => 'Thujohn\Pdf\PdfFacade',
+		'cURL' => 'anlutro\cURL\Laravel\cURL',
 	),
 
 );

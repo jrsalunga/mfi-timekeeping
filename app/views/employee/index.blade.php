@@ -160,6 +160,13 @@ Employee
 		    			{{ Form::label('rfid', 'RFID:', array('class'=>'col-sm-2 control-label')) }}
 						<div class="col-sm-10">						
 							{{ Form::text('rfid', '',array('maxlength'=>'10', 'class'=>'form-control', 'placeholder'=>'RFID')) }}
+							<span class="validation-error-block"></span>
+						</div>
+		    		</div>	
+                    <div class="form-group">
+		    			{{ Form::label('processing', 'Batch Process?', array('class'=>'col-sm-2 control-label')) }}
+						<div class="col-sm-10">						
+							{{ Form::checkbox('processing', 'no') }}
 							<input type="hidden" name="id" id="id"/>
 							<span class="validation-error-block"></span>
 						</div>

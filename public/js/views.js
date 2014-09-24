@@ -130,6 +130,14 @@ var ModalView = Backbone.View.extend({
 	events: {
 		'change input': 'checkValidity',
 		'change select': 'checkValidity',
+		'click input:checkbox' : 'checkBox',
+	},
+	checkBox: function(e){
+		if($(e.currentTarget).prop('checked')){
+			$(e.currentTarget).val(1)
+		} else {
+			$(e.currentTarget).val(0)
+		}
 	},
 	populate: function(){
 		var attrs = { }, k;
@@ -137,6 +145,14 @@ var ModalView = Backbone.View.extend({
 			console.log(k +' - '+ this.model.get(k));
 
 			this.$el.find("#"+k).val(this.model.get(k));
+
+			if(k == 'processing'){
+				if(this.model.get(k) == '1'){
+					this.$el.find("#"+k).prop('checked', 'true');
+				} else {
+					this.$el.find("#"+k).removeAttr('checked');
+				}
+			}
 		}		
 
 	},

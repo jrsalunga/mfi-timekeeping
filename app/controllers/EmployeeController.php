@@ -133,6 +133,7 @@ class EmployeeController extends BaseController {
 				$employee->position  = Input::get('position');
 				$employee->rfid 	 = Input::get('rfid');
 				$employee->paytype 	 = Input::get('paytype');
+				$employee->processing 	 = Input::get('processing');
 				
 				try {
 					$employee->save();

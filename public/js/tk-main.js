@@ -310,7 +310,7 @@ var keypressInit = function(){
 
 				last_empno = empno;
 			} else {
-				console.log('Same Empno')	
+				console.log('Same Empno');	
 			}
 			
 			endCapture = true;

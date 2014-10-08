@@ -20,3 +20,6 @@ on sync to tk-office
 
 >sudo apt-get install php5-curl
 >sudo service apache2 restart
+
+# 09/24/2014
+>update employee set processing = 1 where paytype in (0, 1)

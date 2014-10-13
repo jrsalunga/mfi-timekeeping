@@ -105,7 +105,7 @@ Reports
                         <div class="form-group">
                             {{ Form::label('to', 'To:', array('class'=>'col-sm-2 control-label')) }}
                             <div class="col-sm-10">           
-                              {{ Form::text('to', strftime("%Y-%m-%d", strtotime("+1 day")) ,array('maxlength'=>'10', 'required'=>'', 'class'=>'form-control', 'placeholder'=>'YYYY-MM-DD', 'required')) }}
+                              {{ Form::text('to', !is_null(Input::get('to')) ? Input::get('to') : strftime("%Y-%m-%d", strtotime("+1 day")) ,array('maxlength'=>'10', 'required'=>'', 'class'=>'form-control', 'placeholder'=>'YYYY-MM-DD', 'required')) }}
                             </div>
                         </div>
                         <div class="form-group">

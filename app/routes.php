@@ -5,7 +5,7 @@
 Route::get('/', function() {
 	
 	$sql = "SELECT employee.code, employee.lastname, employee.firstname, employee.position, DATE(timelog.datetime) as date, ";
-	$sql .= "TIME(timelog.datetime) as time, timelog.txncode as type, employee.rfid ";
+	$sql .= "TIME(timelog.datetime) as time, timelog.txncode as type, employee.rfid, timelog.replicated, timelog.id as timelogid ";
 	$sql .= "FROM employee , timelog ";
 	$sql .= "WHERE employee.id = timelog.employeeid ";
 	$sql .= "ORDER BY DATE(timelog.datetime) DESC, TIME(timelog.datetime) DESC ";

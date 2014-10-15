@@ -112,7 +112,10 @@ var appendToTkList = function(data){
 		var html = '<tr class="'+ data.data.txncode +'"><td>'+ data.data.empno +'</td>';
 			html += '<td>'+ data.data.lastname +', '+ data.data.firstname +'</td>'
 			html += '<td><span> '+ c +' </span>&nbsp; '+ d +' </td>'
-			html += '<td>'+ data.data.txnname +'</td></tr>';
+			html += '<td>'+ data.data.txnname;
+			html += '<span id="'+ data.data.timelogid +'" ';
+			html += 'class="glyphicon glyphicon-remove-circle pull-right" style="opacity: .5;">';
+			html += '</span></td></tr>';
 			
 		if($('.emp-tk-list tr').length== 20){
 			$('.emp-tk-list tr:last-child').empty();
@@ -221,16 +224,39 @@ var replicate = function(data){
         beforeSend: function(jqXHR, obj) {
        		//('.notify .inner').html('Replicating...');
 	    	//$('.notify').css('display', 'block');
+	    	beforeSync();
   		},
         success: function(data, textStatus, jqXHR){
 			//$('.notify').css('display', 'none');
 			//$('.notify .inner').html('Done...');
+			synced(data);
         },
         error: function(jqXHR, textStatus, errorThrown){
 			$('.message-group').html('<div class="alert alert-danger">Could not connect to server!</div>');
             //alert(textStatus + ' Failed on posting data');
         }
     });	
+}
+
+var beforeSync = function(){
+	el = $('.emp-tk-list tr:first-child td:last-child span');
+	el.removeClass('glyphicon-remove-circle');
+	el.addClass('rotate');
+	el.addClass('glyphicon-refresh');
+	delete el;
+}
+
+var synced = function(data){
+	el = $('.emp-tk-list tr:first-child td:last-child span');
+	el.removeClass('glyphicon-refresh');
+	el.removeClass('rotate');
+	if(data.code == 200){
+		el.addClass('glyphicon-cloud');
+	} else {
+		el.addClass('glyphicon-remove-circle');
+	}
+	el.parent().effect("highlight", {}, 1000);
+	delete el;
 }
 
 var postTimelog = function(empno, tc){

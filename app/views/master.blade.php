@@ -121,7 +121,12 @@
 								</span>
 								&nbsp;
 								{{ strftime('%I:%M:%S %p', strtotime($employee->time)) }}</td>
-							<td>{{ $employee->type == 'ti' ? 'Time In': 'Time Out' }}</td>
+							<td>
+								{{ $employee->type == 'ti' ? 'Time In ': 'Time Out ' }}
+								<span id="{{ $employee->timelogid }}"  
+								{{ $employee->replicated == '1' ? ' title="synced" class="glyphicon glyphicon-cloud ': ' title="not synced" class="glyphicon glyphicon-remove-circle ' }}
+								pull-right" style="opacity: .5;"></span>
+							</td>
 						</tr>
 						@endforeach
 					</tbody>

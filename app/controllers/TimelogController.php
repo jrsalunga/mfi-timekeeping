@@ -179,6 +179,13 @@ class TimelogController extends BaseController {
 				
 				if($timelog->save()){
 
+					$respone = array(
+						'code'=>'200',
+						'status'=>'success',
+						'message'=>'Record saved!',
+					);	
+
+					/*
 					$url = cURL::buildUrl('http://mfi-htk.herokuapp.com/htk/api/timelog', array());
 					
 					try {						
@@ -205,6 +212,7 @@ class TimelogController extends BaseController {
 							'message'=>'Record saved on local but unable to connect on cloud!',
 						);
 					}
+					*/
 
 
 					$datetime = explode(' ',$timelog->datetime);
@@ -219,7 +227,8 @@ class TimelogController extends BaseController {
 						'date'		=> $datetime[0] ,
 						'time'		=> $datetime[1] ,
 						'txncode'	=> $timelog->txncode,
-						'txnname'	=> $txncode
+						'txnname'	=> $txncode,
+						'timelogid' => $timelog->id
 						
 					);
 				
@@ -235,6 +244,41 @@ class TimelogController extends BaseController {
 			}
 		}
 		return json_encode($respone);
+	}
+
+	public function replicate(){
+
+		$timelog = Timelog::find(Input::get('timelogid'));
+		$url = cURL::buildUrl('http://mfi-htk.herokuapp.com/htk/api/timelog', array());
+					
+		try {						
+			$response = cURL::post($url, $timelog->toArray());
+			if(strpos($response->code, '200') !== false){
+				$respone = array(
+					'code'=>'200',
+					'status'=>'success',
+					'message'=>'Record saved and replicated on cloud!',
+				);			
+				$timelog->replicated = 1;
+				$timelog->save();
+			} else {
+				$respone = array(
+					'code'=>'200',
+					'status'=>'success',
+					'message'=>'Record saved on local but not replicated on cloud!',
+				);
+			}
+		} catch(Exception $e) {
+			$respone = array(
+				'code'=>'400',
+				'status'=>'error',
+				'message'=> $e->getMessage()
+			);
+		}
+
+
+		return json_encode($respone);
+
 	}
 
 

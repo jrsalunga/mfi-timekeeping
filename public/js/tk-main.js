@@ -144,7 +144,7 @@ var updateEmpViewModal = function(data){
 
 
 var updateTK = function(data){
-	console.log(data);
+	//console.log(data);
 	data = data || {};
 		
 	var html = '<div class="alert alert-'+ data.status +'">'+ data.message +'</div>';	
@@ -153,6 +153,7 @@ var updateTK = function(data){
 	if(data && data.code=='200' || data.code=='201'){
 		appendToTkList(data);	
 		updateEmpView(data);
+		replicate(data);
 		
 		setInterval( function() {
 			$('.message-group div').fadeOut(1600);
@@ -163,7 +164,7 @@ var updateTK = function(data){
 }
 
 var updateTKmodal = function(data){
-	console.log(data);
+	//console.log(data);
 	data = data || {};
 		
 	var html = '<div class="alert alert-'+ data.status +'">'+ data.message +'</div>';	
@@ -202,6 +203,36 @@ var validateEmpno = function(empno){
 	}
 }
 
+var replicate = function(data){
+
+	//console.log(data);
+
+	var formData = {
+		timelogid : data.data.timelogid
+	}
+	
+	return $.ajax({
+        type: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+		url: '/api/replicate',
+        dataType: "json",
+        //async: false,
+        data: formData,
+        beforeSend: function(jqXHR, obj) {
+       		//('.notify .inner').html('Replicating...');
+	    	//$('.notify').css('display', 'block');
+  		},
+        success: function(data, textStatus, jqXHR){
+			//$('.notify').css('display', 'none');
+			//$('.notify .inner').html('Done...');
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+			$('.message-group').html('<div class="alert alert-danger">Could not connect to server!</div>');
+            //alert(textStatus + ' Failed on posting data');
+        }
+    });	
+}
+
 var postTimelog = function(empno, tc){
 	//var aData;
 	var formData = {
@@ -212,7 +243,7 @@ var postTimelog = function(empno, tc){
 		//terminalid: 'plant' gethostname
 	}
 	
-	console.log(formData);
+	//console.log(formData);
 	
 	return $.ajax({
         type: 'POST',
@@ -277,7 +308,7 @@ var keypressInit = function(){
 	
 	
 	$('#TKModal').on('hidden.bs.modal', function (e) {
-		console.log('modal hide');
+		//console.log('modal hide');
 		endCapture = false;
 		arr = [];
 		last_empno = '';
@@ -295,10 +326,10 @@ var keypressInit = function(){
 
 			//$('.empno').text(arr.join('',','));
 			empno = arr.join('',',');
-			console.log(empno);
-			console.log('Press Enter');
+			//console.log(empno);
+			//console.log('Press Enter');
 			if(validateEmpno(empno) && last_empno != empno){
-				console.log('Fetching employee: '+ empno);
+				//console.log('Fetching employee: '+ empno);
 				
 				//empData = getEmployee(empno);
 				//updateTKmodal(empData);
@@ -319,7 +350,7 @@ var keypressInit = function(){
 		} else if((code == 105 || code == 102 || code == 70) && endCapture){ // timein    49="1"
 				
 			if(validateEmpno(empno)){
-				console.log('Time In: '+ empno);
+				//console.log('Time In: '+ empno);
 				//postTimelog(empno,'ti');
 				postTimelog(empno,'ti').done(function(data){
 					updateTK(data);
@@ -336,7 +367,7 @@ var keypressInit = function(){
 		} else if((code == 111 || code == 106 || code == 74) && endCapture){ // timeout	50="2"	or 48 ="0"
 			
 			if(validateEmpno(empno)){
-				console.log('Time Out: '+ empno);
+				//console.log('Time Out: '+ empno);
 				//postTimelog(empno,'to');
 				postTimelog(empno,'to').done(function(data){
 					updateTK(data);

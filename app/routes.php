@@ -73,6 +73,7 @@ Route::post('admin/login', function(){
 Route::get('admin/logout', array('as'=>'admin.logout', 'uses'=>'AdminController@logout'));
 Route::get('admin/settings', array('as'=>'admin.settings', 'uses'=>'AdminController@settings'));
 Route::post('api/timelog', array('as'=>'timelog.post', 'uses'=>'TimelogController@post'));
+Route::post('api/replicate', array('as'=>'timelog.replicate', 'uses'=>'TimelogController@replicate'));
 Route::get('api/employee/{field?}/{value?}', array('as'=>'field.get', 'uses'=>'EmployeeController@getByField'));
 Route::get('api/search/{field?}', array('as'=>'search.field', 'uses'=>'SearchController@searchTable'));
 

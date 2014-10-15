@@ -109,10 +109,10 @@ var appendToTkList = function(data){
 	var d = moment(data.data.date+' '+data.data.time).tz("Asia/Manila").format('hh:mm:ss A');
 	var c = moment(data.data.date+' '+data.data.time).tz("Asia/Manila").format('MMM D');
 	
-		var html = '<tr><td>'+ data.data.empno +'</td>';
+		var html = '<tr class="'+ data.data.txncode +'"><td>'+ data.data.empno +'</td>';
 			html += '<td>'+ data.data.lastname +', '+ data.data.firstname +'</td>'
 			html += '<td><span> '+ c +' </span>&nbsp; '+ d +' </td>'
-			html += '<td>'+ data.data.txncode +'</td></tr>';
+			html += '<td>'+ data.data.txnname +'</td></tr>';
 			
 		if($('.emp-tk-list tr').length== 20){
 			$('.emp-tk-list tr:last-child').empty();
@@ -121,7 +121,7 @@ var appendToTkList = function(data){
 	
 		$('.emp-tk-list tr:first-child').before(html)
 			.prev().find('td').each(function(){
-				$(this).effect("highlight", {}, 3000);
+				$(this).effect("highlight", {}, 1000);
 			});
 }
 

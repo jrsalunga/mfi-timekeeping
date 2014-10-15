@@ -104,7 +104,7 @@
 		</div>
 		<div class="main-r-pane col-sm-6 col-md-6">
 			<div class="container-table">
-				<table class="table table-striped table-condensed" role="table">
+				<table class="table table-condensed" role="table">
 					<thead>
 						<tr>
 							<th>Emp No</th><th>Name</th><th>Date Time</th><th>Type</th>
@@ -112,7 +112,7 @@
 					</thead>
 					<tbody class="emp-tk-list">
 						@foreach($employees as $employee)
-						<tr>
+						<tr class="{{ $employee->type }}">
 							<td>{{ $employee->code }}</td>
 							<td title="{{ $employee->rfid }}" >{{ $employee->lastname }}, {{ $employee->firstname }}</td>
 							<td>

@@ -9,7 +9,8 @@
 		"maatwebsite/excel": "dev-master",
 		"thujohn/pdf": "dev-master",
 		"anlutro/curl": "dev-master",
-		"mandrill/mandrill": "dev-master"
+		"mandrill/mandrill": "dev-master",
+		"indatus/dispatcher": "1.*"
 	},
 	"autoload": {
 		"classmap": [

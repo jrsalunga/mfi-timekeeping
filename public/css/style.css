@@ -315,9 +315,13 @@ body {
 }
 
 
+.emp-tk-list .ti {
+	background-color: #dff0d8;
+}
 
-
-
+.emp-tk-list .to {
+	background-color: #f2dede;
+}
 
 
 

@@ -218,7 +218,8 @@ class TimelogController extends BaseController {
 						'position'	=> $employee[0]->position ,
 						'date'		=> $datetime[0] ,
 						'time'		=> $datetime[1] ,
-						'txncode'	=> $txncode
+						'txncode'	=> $timelog->txncode,
+						'txnname'	=> $txncode
 						
 					);
 				

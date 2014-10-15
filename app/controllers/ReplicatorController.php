@@ -7,7 +7,8 @@ use Indatus\Dispatcher\Drivers\Cron\Scheduler;
 
 class ReplicatorController extends ScheduledCommand {
 
-    //your command name, description etc.
+    protected $name = 'ReplicatorController:name';
+    protected $description = 'run replicate';
 
     public function schedule(Schedulable $scheduler)
     {

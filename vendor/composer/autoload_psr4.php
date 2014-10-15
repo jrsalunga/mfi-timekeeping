@@ -7,7 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'anlutro\\cURL\\' => array($vendorDir . '/anlutro/curl/src'),
-    'React\\Stream\\' => array($vendorDir . '/react/stream'),
+    'TijsVerkoyen\\CssToInlineStyles\\' => array($vendorDir . '/tijsverkoyen/css-to-inline-styles/src'),
+    'React\\Stream\\' => array($vendorDir . '/react/stream/src'),
     'React\\Socket\\' => array($vendorDir . '/react/socket/src'),
     'React\\EventLoop\\' => array($vendorDir . '/react/event-loop'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),

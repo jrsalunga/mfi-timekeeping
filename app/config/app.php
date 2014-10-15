@@ -109,6 +109,7 @@ return array(
 		'Maatwebsite\Excel\ExcelServiceProvider',
 		'Thujohn\Pdf\PdfServiceProvider',
 		'anlutro\cURL\Laravel\cURLServiceProvider',
+		'Indatus\Dispatcher\ServiceProvider',
 
 	),
 

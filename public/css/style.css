@@ -323,11 +323,25 @@ body {
 	background-color: #f2dede;
 }
 
+.emp-tk-list td:last-child span {
+	opacity: .5;
+	cursor: pointer;
+	top: 4px;
+}
+
+.emp-tk-list td:last-child span:active {
+	top: 5px;
+}
+
+.emp-tk-list td:last-child span:hover {
+	opacity: 1;
+}
+
 
 .rotate {
     -animation: spin .7s infinite linear;
     -webkit-animation: spin2 .7s infinite linear;
-   
+
 }
 
 @-webkit-keyframes spin2 {

@@ -13,7 +13,7 @@ class replicate extends ScheduledCommand {
 	 *
 	 * @var string
 	 */
-	protected $name = 'command:name';
+	protected $name = 'replicate:name';
 
 	/**
 	 * The console command description.
@@ -40,7 +40,10 @@ class replicate extends ScheduledCommand {
 	 */
 	public function schedule(Schedulable $scheduler)
 	{
-		return $scheduler;
+		//return $scheduler;
+		 return $scheduler->daily()
+            			->hours(12)
+            			->minutes(00);
 	}
 
 	/**

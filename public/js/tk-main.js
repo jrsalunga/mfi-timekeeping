@@ -252,8 +252,10 @@ var synced = function(data){
 	el.removeClass('rotate');
 	if(data.code == 200){
 		el.addClass('glyphicon-cloud');
+		el.attr('title', 'synced');
 	} else {
 		el.addClass('glyphicon-remove-circle');
+		el.attr('title', 'not synced');
 	}
 	el.parent().effect("highlight", {}, 1000);
 	delete el;

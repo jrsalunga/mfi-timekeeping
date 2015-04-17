@@ -5,12 +5,14 @@
 	"license": "MIT",
 	"require": {
 		"laravel/framework": "4.1.*",
-		"cboden/Ratchet": "0.3.*",
+		"cboden/ratchet": "0.3.*",
 		"maatwebsite/excel": "dev-master",
 		"thujohn/pdf": "dev-master",
 		"anlutro/curl": "dev-master",
 		"mandrill/mandrill": "dev-master",
-		"indatus/dispatcher": "1.*"
+		"indatus/dispatcher": "1.*",
+		"brainboxlabs/brain-socket": "dev-master",
+		"artdarek/pusherer": "1.0.*"
 	},
 	"autoload": {
 		"classmap": [

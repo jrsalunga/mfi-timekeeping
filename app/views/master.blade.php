@@ -14,7 +14,7 @@
 	{{ HTML::style('css/styles-ui2.css') }}
 	{{ HTML::style('css/style.css') }}
 	
-</head>
+
 <style type="text/css">
 .notify{
 	position: fixed;
@@ -42,6 +42,7 @@
 	-moz-border-radius: 2px;
 }
 </style>
+</head>
 <body>
 <!-- Fixed navbar -->
 
@@ -202,9 +203,11 @@
   </div>
 </div>
 
-
+	{{ HTML::script('js/vendors/socket.io-1.2.0.js') }}
 	{{ HTML::script('js/vendors/jquery-1.10.1.min.js') }}
 	{{ HTML::script('js/vendors/jquery-ui-1.10.3.js') }}
+	{{ HTML::script('js/vendors/underscore-min.js') }}
+    {{ HTML::script('js/vendors/backbone-min.js') }}
 	{{ HTML::script('js/vendors/moment.2.5.1-min.js') }}
 	{{ HTML::script('js/vendors/moment-timezone.min.js') }}
 	<script>
@@ -234,7 +237,60 @@
 	
 	{{ HTML::script('js/vendors/jquery.typeflow.js') }}
 	{{ HTML::script('js/vendors/bootstrap.min.js') }}
+	{{ HTML::script('js/vendors/brain-socket.min.js') }}
 	{{ HTML::script('js/tk-main.js') }}
+
+	<script type="text/javascript" charset="utf-8">
+	
+	$(document).ready(function(){
+		window.app = {};
+		app.BrainSocket = new BrainSocket(
+        	new WebSocket('ws://timekeeping.mfi.dev:8080'),
+        	new BrainSocketPubSub()
+		);
+
+
+		//var socket = io.connect('http://winecellars.herokuapp.com');
+       	var socket = io.connect('http://localhost:3000');
+
+		$('.emp-tk-list tr td span').click(function(event){
+
+		    
+		    //app.BrainSocket.success('Congrats, Welcome to the team!');
+		    var data = {
+										'message':'this is a test',
+										'id':$(this).attr('id')
+									}
+		    
+		    //app.BrainSocket.message('generic.event',data);
+
+		    socket.emit('plant-ti', data);
+
+		    return false;
+
+		});
+
+		app.BrainSocket.Event.listen('generic.event',function(msg)
+		{
+		    console.log(msg.client.data.id);
+		});
+
+		app.BrainSocket.Event.listen('app.success',function(msg)
+		{
+		    console.log(msg);
+		});
+
+		app.BrainSocket.Event.listen('app.error',function(msg)
+		{
+		    console.log(msg);
+		});
+
+	
+
+		
+	});
+
+	</script>
 
 </body>
 </html>

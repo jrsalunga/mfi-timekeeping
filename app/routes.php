@@ -1,6 +1,14 @@
 <?php
 
 
+Route::get('for', function(){
+	$timelog = Timelog::take(10)->get();
+	//echo count($timelog).'<br>';
+	//echo $timelog->toJson();
+	for($i = 0; $i < count($timelog); ++$i) {
+		echo $timelog[$i]->datetime.'<br>';
+	}
+});
 
 Route::get('/', function() {
 	
@@ -195,7 +203,8 @@ Route::get('timelogs', function(){
 	//$timelogs = Timelog::paginate(5);	
 	$timelogs = DB::table('timelog')->paginate(5);
 	
-	return $timelogs;
+	//return $timelogs->getItems();
+	//return $timelogs;
 });
 
 Route::get('employees', function(){
@@ -430,6 +439,21 @@ Route::get('/controller', function() {
 	return Route::currentRouteAction();
 
 });
+
+
+Route::get('/pusher', function() {
+ 	
+	return View::make('test.pusher');
+
+});
+
+Route::get('/test-pusher', function() {
+ 	
+	$message = "timelog from office";
+    Pusherer::trigger('mfi-office', 'timelog', array( 'message' => $message ));
+
+});
+
 
 
 

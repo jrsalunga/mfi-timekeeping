@@ -49,5 +49,7 @@ return array(
     'Cron' => array($vendorDir . '/mtdowling/cron-expression/src'),
     'ClassPreloader' => array($vendorDir . '/classpreloader/classpreloader/src'),
     'Carbon' => array($vendorDir . '/nesbot/carbon/src'),
+    'BrainSocket' => array($vendorDir . '/brainboxlabs/brain-socket/src'),
     'Boris' => array($vendorDir . '/d11wtq/boris/lib'),
+    'Artdarek\\Pusherer' => array($vendorDir . '/artdarek/pusherer/src'),
 );

@@ -147,7 +147,8 @@ var updateEmpViewModal = function(data){
 
 
 var updateTK = function(data){
-	//console.log(data);
+	console.log('updateTK');
+	console.log(data);
 	data = data || {};
 		
 	var html = '<div class="alert alert-'+ data.status +'">'+ data.message +'</div>';	
@@ -206,6 +207,7 @@ var validateEmpno = function(empno){
 	}
 }
 
+// send a curl request 
 var replicate = function(data){
 
 	//console.log(data);
@@ -237,6 +239,9 @@ var replicate = function(data){
         }
     });	
 }
+
+
+
 
 var beforeSync = function(){
 	el = $('.emp-tk-list tr:first-child td:last-child span');
@@ -423,8 +428,11 @@ var keypressInit = function(){
 			arr = [];
 			last_empno = '';
 		} else {
-		
+			
 			arr.push(String.fromCharCode(code));
+			//console.log(arr.join(''));
+			var html = '<div class="alert alert-info">'+ arr.join('') +'</div>';	
+			$('.message-group').html(html);
 			
 				
 			

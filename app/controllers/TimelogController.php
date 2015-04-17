@@ -264,7 +264,7 @@ class TimelogController extends BaseController {
 			} else {
 				$respone = array(
 					'code'=>'200',
-					'status'=>'success',
+					'status'=>'error',
 					'message'=>'Record saved on local but not replicated on cloud!',
 				);
 			}

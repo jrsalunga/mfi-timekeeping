@@ -110,6 +110,8 @@ return array(
 		'Thujohn\Pdf\PdfServiceProvider',
 		'anlutro\cURL\Laravel\cURLServiceProvider',
 		'Indatus\Dispatcher\ServiceProvider',
+		'BrainSocket\BrainSocketServiceProvider',
+		'Artdarek\Pusherer\PushererServiceProvider',
 
 	),
 
@@ -178,7 +180,8 @@ return array(
 		'View'            => 'Illuminate\Support\Facades\View',
 		'Excel'			  => 'Maatwebsite\Excel\Facades\Excel',
 		'PDF' 			  => 'Thujohn\Pdf\PdfFacade',
-		'cURL' => 'anlutro\cURL\Laravel\cURL',
+		'cURL' 			  => 'anlutro\cURL\Laravel\cURL',
+		'BrainSocket'     => 'BrainSocket\BrainSocketFacade',
 	),
 
 );

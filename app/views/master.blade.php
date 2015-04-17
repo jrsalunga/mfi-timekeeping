@@ -43,7 +43,7 @@
 }
 </style>
 </head>
-<body>
+<body data-location="plant">
 <!-- Fixed navbar -->
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -244,14 +244,14 @@
 	
 	$(document).ready(function(){
 		window.app = {};
+		/*
 		app.BrainSocket = new BrainSocket(
         	new WebSocket('ws://timekeeping.mfi.dev:8080'),
         	new BrainSocketPubSub()
 		);
 
 
-		//var socket = io.connect('http://winecellars.herokuapp.com');
-       	var socket = io.connect('http://localhost:3000');
+		
 
 		$('.emp-tk-list tr td span').click(function(event){
 
@@ -285,7 +285,7 @@
 		    console.log(msg);
 		});
 
-	
+		*/
 
 		
 	});

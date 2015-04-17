@@ -1,3 +1,6 @@
+var socket = io.connect('https://api-mfitk.herokuapp.com');
+//var socket = io.connect('http://localhost:3000');
+
 $.ajaxSetup({
 	beforeSend: function(jqXHR, obj) {
     	$('.notify').css('display', 'block');
@@ -148,7 +151,7 @@ var updateEmpViewModal = function(data){
 
 var updateTK = function(data){
 	console.log('updateTK');
-	console.log(data);
+	console.log(data.data);
 	data = data || {};
 		
 	var html = '<div class="alert alert-'+ data.status +'">'+ data.message +'</div>';	
@@ -157,8 +160,13 @@ var updateTK = function(data){
 	if(data && data.code=='200' || data.code=='201'){
 		appendToTkList(data);	
 		updateEmpView(data);
-		replicate(data);
+		var loc = $('body').data('location');
 		
+		console.log(loc);
+		console.log(loc+'-'+data.data.txncode);
+		
+		socket.emit(loc+'-'+data.data.txncode, data.data);
+
 		setInterval( function() {
 			$('.message-group div').fadeOut(1600);
 		},3000);
@@ -239,9 +247,6 @@ var replicate = function(data){
         }
     });	
 }
-
-
-
 
 var beforeSync = function(){
 	el = $('.emp-tk-list tr:first-child td:last-child span');
@@ -495,6 +500,26 @@ $(document).ready(function(){
 	keypressInit();
 	
 	//$('body').flowtype();
+
+
+	socket.on('push-paco-ti', function(data){
+        console.log(data.txncode +': '+ data.date +' '+ data.time +' - '+ data.lastname +', '+ data.firstname);
+    });
+
+    socket.on('push-paco-to', function(data){
+        console.log(data.txncode +': '+ data.date +' '+ data.time +' - '+ data.lastname +', '+ data.firstname);
+    });
+
+    socket.on('push-plant-ti', function(data){
+        console.log(data.txncode +': '+ data.date +' '+ data.time +' - '+ data.lastname +', '+ data.firstname);
+    });
+
+    socket.on('push-plant-to', function(data){
+        console.log(data.txncode +': '+ data.date +' '+ data.time +' - '+ data.lastname +', '+ data.firstname);
+    });
+
+    
+    
 	
 
 });

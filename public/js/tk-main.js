@@ -1,5 +1,6 @@
 var socket = io.connect('https://api-mfitk.herokuapp.com');
 //var socket = io.connect('http://localhost:3000');
+var loc = $('body').data('location');
 
 $.ajaxSetup({
 	beforeSend: function(jqXHR, obj) {
@@ -160,12 +161,12 @@ var updateTK = function(data){
 	if(data && data.code=='200' || data.code=='201'){
 		appendToTkList(data);	
 		updateEmpView(data);
-		var loc = $('body').data('location');
+		//var loc = $('body').data('location');
 		
-		console.log(loc);
-		console.log(loc+'-'+data.data.txncode);
+		//console.log(loc);
+		//console.log(loc+'-'+data.data.txncode);
 		
-		socket.emit(loc+'-'+data.data.txncode, data.data);
+		//socket.emit(loc+'-'+data.data.txncode, data.data);
 
 		setInterval( function() {
 			$('.message-group div').fadeOut(1600);
@@ -271,17 +272,23 @@ var synced = function(data){
 	delete el;
 }
 
-var postTimelog = function(empno, tc){
-	//var aData;
-	var formData = {
+var preparePostTimelogData = function(empno, tc){
+
+	return {
 		rfid : empno,
 		datetime: moment().tz("Asia/Manila").format('YYYY-MM-DD HH:mm:ss'),
 		txncode: tc,
 		entrytype: '1',
 		//terminalid: 'plant' gethostname
 	}
+
+}
+
+var postTimelog = function(data, source){
+	//var aData;
 	
-	//console.log(formData);
+	var formData = data;
+	console.log(formData);
 	
 	return $.ajax({
         type: 'POST',
@@ -390,8 +397,11 @@ var keypressInit = function(){
 			if(validateEmpno(empno)){
 				//console.log('Time In: '+ empno);
 				//postTimelog(empno,'ti');
-				postTimelog(empno,'ti').done(function(data){
+
+				postTimelog(preparePostTimelogData(empno,'ti'), 'local').done(function(data){
 					updateTK(data);
+					console.log('emit');
+					socket.emit(loc+'-'+data.data.txncode, data.data);
 					//$('#TKModal').modal('hide');
 				});
 				$('#TKModal').modal('hide');
@@ -407,8 +417,11 @@ var keypressInit = function(){
 			if(validateEmpno(empno)){
 				//console.log('Time Out: '+ empno);
 				//postTimelog(empno,'to');
-				postTimelog(empno,'to').done(function(data){
+				postTimelog(preparePostTimelogData(empno,'to'), 'local').done(function(data){
 					updateTK(data);
+					console.log('emit');
+					socket.emit(loc+'-'+data.data.txncode, data.data);
+
 					//$('#TKModal').modal('hide');
 				});
 				$('#TKModal').modal('hide');
@@ -503,19 +516,23 @@ $(document).ready(function(){
 
 
 	socket.on('push-paco-ti', function(data){
-        console.log(data.txncode +': '+ data.date +' '+ data.time +' - '+ data.lastname +', '+ data.firstname);
+		console.log('socket push-paco-ti');
+        console.log(data);
     });
 
     socket.on('push-paco-to', function(data){
-        console.log(data.txncode +': '+ data.date +' '+ data.time +' - '+ data.lastname +', '+ data.firstname);
+    	console.log('socket push-paco-to');
+        console.log(data);
     });
 
     socket.on('push-plant-ti', function(data){
-        console.log(data.txncode +': '+ data.date +' '+ data.time +' - '+ data.lastname +', '+ data.firstname);
+    	console.log('socket push-plant-ti');
+        console.log(data);
     });
 
     socket.on('push-plant-to', function(data){
-        console.log(data.txncode +': '+ data.date +' '+ data.time +' - '+ data.lastname +', '+ data.firstname);
+    	console.log('socket push-plant-to');
+        console.log(data);
     });
 
     

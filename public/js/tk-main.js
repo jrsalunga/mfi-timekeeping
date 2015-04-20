@@ -344,12 +344,14 @@ var getEmployee = function(empno){
 var keypressInit = function(){
 	
 	var data = {};
-	var empData = {};
-	var arr = [];
-	var endCapture = false;
-	var posted = false;
 	var empno = '';
+	var posted = false;
+	
+	
+	var endCapture = false;
+	var arr = [];
 	var last_empno = '';
+	var empData = {};
 	
 	
 	$('#TKModal').on('hidden.bs.modal', function (e) {
@@ -398,7 +400,8 @@ var keypressInit = function(){
 				//console.log('Time In: '+ empno);
 				//postTimelog(empno,'ti');
 
-				postTimelog(preparePostTimelogData(empno,'ti'), 'local').done(function(data){
+				postTimelog(preparePostTimelogData(empno,'ti'), 'local')
+				.done(function(data){
 					updateTK(data);
 					console.log('emit');
 					socket.emit(loc+'-'+data.data.txncode, data);
@@ -417,7 +420,8 @@ var keypressInit = function(){
 			if(validateEmpno(empno)){
 				//console.log('Time Out: '+ empno);
 				//postTimelog(empno,'to');
-				postTimelog(preparePostTimelogData(empno,'to'), 'local').done(function(data){
+				postTimelog(preparePostTimelogData(empno,'to'), 'local')
+				.done(function(data){
 					updateTK(data);
 					console.log('emit');
 					socket.emit(loc+'-'+data.data.txncode, data);
@@ -515,7 +519,7 @@ $(document).ready(function(){
 	//$('body').flowtype();
 
 	// paco event
-	
+	/*
 	socket.on('paco-push-ti', function(data){
 		console.log('socket push-paco-ti');
         console.log(data);
@@ -527,10 +531,11 @@ $(document).ready(function(){
         console.log(data);
         updateTK(data);
     });
+	*/
 
 
     // plant event
-    /*
+    
     socket.on('plant-push-ti', function(data){
     	console.log('socket push-plant-ti');
         console.log(data);
@@ -542,7 +547,6 @@ $(document).ready(function(){
         console.log(data);
         updateTK(data);
     });
-*/
 
     
     

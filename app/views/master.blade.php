@@ -43,7 +43,7 @@
 }
 </style>
 </head>
-<body data-location="plant">
+<body data-location="paco">
 <!-- Fixed navbar -->
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">

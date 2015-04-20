@@ -401,7 +401,7 @@ var keypressInit = function(){
 				postTimelog(preparePostTimelogData(empno,'ti'), 'local').done(function(data){
 					updateTK(data);
 					console.log('emit');
-					socket.emit(loc+'-'+data.data.txncode, data.data);
+					socket.emit(loc+'-'+data.data.txncode, data);
 					//$('#TKModal').modal('hide');
 				});
 				$('#TKModal').modal('hide');
@@ -420,7 +420,7 @@ var keypressInit = function(){
 				postTimelog(preparePostTimelogData(empno,'to'), 'local').done(function(data){
 					updateTK(data);
 					console.log('emit');
-					socket.emit(loc+'-'+data.data.txncode, data.data);
+					socket.emit(loc+'-'+data.data.txncode, data);
 
 					//$('#TKModal').modal('hide');
 				});
@@ -518,21 +518,25 @@ $(document).ready(function(){
 	socket.on('push-paco-ti', function(data){
 		console.log('socket push-paco-ti');
         console.log(data);
+        updateTK(data);
     });
 
     socket.on('push-paco-to', function(data){
     	console.log('socket push-paco-to');
         console.log(data);
+        updateTK(data);
     });
 
     socket.on('push-plant-ti', function(data){
     	console.log('socket push-plant-ti');
         console.log(data);
+        updateTK(data);
     });
 
     socket.on('push-plant-to', function(data){
     	console.log('socket push-plant-to');
         console.log(data);
+        updateTK(data);
     });
 
     

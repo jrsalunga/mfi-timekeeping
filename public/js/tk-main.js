@@ -514,7 +514,8 @@ $(document).ready(function(){
 	
 	//$('body').flowtype();
 
-
+	// paco event
+	/*
 	socket.on('push-paco-ti', function(data){
 		console.log('socket push-paco-ti');
         console.log(data);
@@ -526,7 +527,9 @@ $(document).ready(function(){
         console.log(data);
         updateTK(data);
     });
+	*/
 
+    // plant event
     socket.on('push-plant-ti', function(data){
     	console.log('socket push-plant-ti');
         console.log(data);

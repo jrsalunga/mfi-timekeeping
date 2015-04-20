@@ -515,27 +515,29 @@ $(document).ready(function(){
 	//$('body').flowtype();
 
 	// paco event
-	socket.on('push-paco-ti', function(data){
+	
+	socket.on('paco-push-ti', function(data){
 		console.log('socket push-paco-ti');
         console.log(data);
         updateTK(data);
     });
 
-    socket.on('push-paco-to', function(data){
+    socket.on('paco-push-to', function(data){
     	console.log('socket push-paco-to');
         console.log(data);
         updateTK(data);
     });
 
+
     // plant event
     /*
-    socket.on('push-plant-ti', function(data){
+    socket.on('plant-push-ti', function(data){
     	console.log('socket push-plant-ti');
         console.log(data);
         updateTK(data);
     });
 
-    socket.on('push-plant-to', function(data){
+    socket.on('plant-push-to', function(data){
     	console.log('socket push-plant-to');
         console.log(data);
         updateTK(data);

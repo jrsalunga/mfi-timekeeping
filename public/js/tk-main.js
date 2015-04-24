@@ -427,6 +427,7 @@ var keypressInit = function(){
 			if(validateEmpno(empno)){
 				//console.log('Time Out: '+ empno);
 				//postTimelog(empno,'to');
+				/*
 				postTimelog(preparePostTimelogData(empno,'to'), 'local')
 				.done(function(data){
 					//updateTK(data); update when socket emit
@@ -435,6 +436,9 @@ var keypressInit = function(){
 					socket.emit('timeout', data);
 					//$('#TKModal').modal('hide');
 				});
+				*/
+
+				socket.emit('to', preparePostTimelogData(empno,'to'));
 				$('#TKModal').modal('hide');
 			}
 			
@@ -586,7 +590,22 @@ $(document).ready(function(){
     		synced(data);
   		});
 
-  		
+    });
+
+
+     socket.on('to', function(data){
+
+        postTimelog(data)
+		.done(function(data){
+			updateTK(data);
+			beforeSync(); 	
+		})
+		.fail(function(data) {
+   	 		
+  		})
+  		.always(function(data) {
+    		synced(data);
+  		});
 
     });
 

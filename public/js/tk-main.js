@@ -270,6 +270,7 @@ var synced = function(data){
 	}
 	el.parent().effect("highlight", {}, 1000);
 	delete el;
+	console.log('synced!');
 }
 
 var preparePostTimelogData = function(empno, tc){
@@ -286,6 +287,8 @@ var preparePostTimelogData = function(empno, tc){
 
 var postTimelog = function(data, source){
 	//var aData;
+
+	source = source || loc;
 	
 	var formData = data;
 	console.log(formData);
@@ -300,6 +303,7 @@ var postTimelog = function(data, source){
         beforeSend: function(jqXHR, obj) {
        		$('.notify .inner').html('Saving...');
 	    	$('.notify').css('display', 'block');
+
   		},
         success: function(data, textStatus, jqXHR){
             //aData = data;
@@ -399,7 +403,7 @@ var keypressInit = function(){
 			if(validateEmpno(empno)){
 				//console.log('Time In: '+ empno);
 				//postTimelog(empno,'ti');
-
+/*
 				postTimelog(preparePostTimelogData(empno,'ti'), 'local')
 				.done(function(data){
 					//updateTK(data); update when socket emit
@@ -408,6 +412,8 @@ var keypressInit = function(){
 					socket.emit('timein', data);
 					//$('#TKModal').modal('hide');
 				});
+*/
+				socket.emit('ti', preparePostTimelogData(empno,'ti'));
 				$('#TKModal').modal('hide');
 			}		
 			
@@ -427,7 +433,6 @@ var keypressInit = function(){
 					console.log('emit');
 					//socket.emit(loc+'-'+data.data.txncode, data);
 					socket.emit('timeout', data);
-
 					//$('#TKModal').modal('hide');
 				});
 				$('#TKModal').modal('hide');
@@ -556,12 +561,33 @@ $(document).ready(function(){
     	console.log('socket push-timein');
         console.log(data);
         updateTK(data);
+        beforeSync();
     });
 
     socket.on('push-timeout', function(data){
     	console.log('socket push-timeout');
         console.log(data);
         updateTK(data);
+        beforeSync();
+    });
+
+
+    socket.on('ti', function(data){
+
+        postTimelog(data)
+		.done(function(data){
+			updateTK(data);
+			beforeSync(); 	
+		})
+		.fail(function(data) {
+   	 		
+  		})
+  		.always(function(data) {
+    		synced(data);
+  		});
+
+  		
+
     });
 
     

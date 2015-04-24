@@ -402,9 +402,10 @@ var keypressInit = function(){
 
 				postTimelog(preparePostTimelogData(empno,'ti'), 'local')
 				.done(function(data){
-					updateTK(data);
+					//updateTK(data); update when socket emit
 					console.log('emit');
-					socket.emit(loc+'-'+data.data.txncode, data);
+					//socket.emit(loc+'-'+data.data.txncode, data);
+					socket.emit('timein', data);
 					//$('#TKModal').modal('hide');
 				});
 				$('#TKModal').modal('hide');
@@ -422,9 +423,10 @@ var keypressInit = function(){
 				//postTimelog(empno,'to');
 				postTimelog(preparePostTimelogData(empno,'to'), 'local')
 				.done(function(data){
-					updateTK(data);
+					//updateTK(data); update when socket emit
 					console.log('emit');
-					socket.emit(loc+'-'+data.data.txncode, data);
+					//socket.emit(loc+'-'+data.data.txncode, data);
+					socket.emit('timeout', data);
 
 					//$('#TKModal').modal('hide');
 				});
@@ -519,7 +521,7 @@ $(document).ready(function(){
 	//$('body').flowtype();
 
 	// paco event
-	/*
+	
 	socket.on('paco-push-ti', function(data){
 		console.log('socket push-paco-ti');
         console.log(data);
@@ -531,7 +533,7 @@ $(document).ready(function(){
         console.log(data);
         updateTK(data);
     });
-	*/
+	
 
 
     // plant event
@@ -544,6 +546,20 @@ $(document).ready(function(){
 
     socket.on('plant-push-to', function(data){
     	console.log('socket push-plant-to');
+        console.log(data);
+        updateTK(data);
+    });
+
+
+    // both plant and paco
+    socket.on('push-timein', function(data){
+    	console.log('socket push-timein');
+        console.log(data);
+        updateTK(data);
+    });
+
+    socket.on('push-timeout', function(data){
+    	console.log('socket push-timeout');
         console.log(data);
         updateTK(data);
     });

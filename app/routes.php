@@ -492,6 +492,29 @@ Route::get('/timelog-api', function(){
 
 
 
+Route::get('/env', function(){
+    $environment = App::environment();
+    echo $environment;
+});
+
+Route::get('/env/hostname', function(){
+    return gethostname();
+});
+
+Route::get('/phpinfoko', function(){
+    echo phpinfo();
+});
+
+Route::get('/checkdbconn', function(){
+    if(DB::connection()->getDatabaseName()){
+       echo "connected sucessfully to database ".DB::connection()->getDatabaseName();
+    }
+});
+
+
+
+
+
 Event::listen('illuminate.query', function($query, $bindings, $time, $name){
 	//var_dump($query);
 	//var_dump($bindings);

@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'timekeeping',
+			'database'  => 'mfi-timekeeping',
 			'username'  => 'root',
 			'password'  => 'p@55w0rd',
 			'charset'   => 'utf8',
